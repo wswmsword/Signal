@@ -1,0 +1,17 @@
+.normal {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  background-color: transparent;
+  color: #aaa;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.normal:hover {
+  color: #333;
+}
+
+.normal.selected {
+  color: #333;
+}

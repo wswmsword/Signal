@@ -1,0 +1,61 @@
+.btn_more {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 0px;
+  background-color: transparent;
+  cursor: pointer;
+  border-radius: 50%;
+}
+.btn_more.selected {
+  background-color: rgb(232, 232, 232);
+}
+.dots_menu {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  border: 1px solid #aaa;
+  box-sizing: border-box;
+  position: relative;
+}
+.btn_more:hover .dots_menu {
+  border: 1px solid #333;
+}
+.btn_more.selected .dots_menu {
+  border: 0;
+  background-color: #333;
+  width: 5px;
+  height: 5px;
+}
+.dots_menu::before, .dots_menu::after {
+  content: '';
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  border: 1px solid #aaa;
+  box-sizing: border-box;
+  left: -9px;
+  top: -1px;
+}
+.btn_more:hover .dots_menu::before, .btn_more:hover .dots_menu::after {
+  border: 1px solid #333;
+}
+.btn_more.selected .dots_menu::before, .btn_more.selected .dots_menu::after {
+  border: 0;
+  background-color: #333;
+  top: 0;
+  width: 5px;
+  height: 5px;
+  left: -7px;
+}
+.btn_more.selected .dots_menu::after {
+  left: auto;
+  right: -7px;
+}
+.dots_menu::after {
+  left: auto;
+  right: -9px;
+}
