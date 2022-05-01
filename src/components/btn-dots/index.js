@@ -1,8 +1,8 @@
 import styles from "./index.module.css";
 
 const BtnDots = props => {
-  const {selected} = props;
-  return <button className={`${styles.btn_more} ${selected ? styles.selected : ''}`}>
+  const {selected, onClick} = props;
+  return <button className={`${styles.btn_more} ${selected ? styles.selected : ''}`} onClick={onClick}>
     <div className={styles.dots_menu} />
   </button>;
 };

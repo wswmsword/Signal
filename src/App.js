@@ -1,13 +1,16 @@
 import logo from './logo.svg';
 import './App.css';
 import NavBar from './components/nav-bar';
+import {useState} from 'react';
 
 function App() {
+  const [show, toggle] = useState(false);
+
   return (
     <div className="App">
       <NavBar />
+      <button onClick={() => toggle(!show)}>Toggle</button>
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>

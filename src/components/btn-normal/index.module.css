@@ -8,10 +8,22 @@
   cursor: pointer;
 }
 
+.dark {
+  color: rgb(69, 69, 69);
+}
+
 .normal:hover {
   color: #333;
 }
 
 .normal.selected {
   color: #333;
+}
+
+.dark:hover {
+  color: #222;
+}
+
+.dark.selected {
+  color: #222;
 }
