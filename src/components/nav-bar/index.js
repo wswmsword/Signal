@@ -44,7 +44,7 @@ const NavBar = props => {
         <BtnNormal colorType="dark">最新</BtnNormal>
       </li>
       <li className={`${styles.nav_item}`}>
-        <BtnNormal colorType="dark">草稿</BtnNormal>
+        <BtnNormal colorType="dark">速写</BtnNormal>
       </li>
     </ul>
     <ul className={`${styles.nav_right} ${styles.nav_menu}`}>
@@ -76,7 +76,7 @@ function MoreListMobile({ inPortal }) {
   return <>
     <ul className={inPortal ? styles.mobile : ''}>
       <li className={styles.func_item}><BtnNormal>创建消息</BtnNormal></li>
-      <li className={styles.func_item}><BtnNormal>打草稿</BtnNormal></li>
+      <li className={styles.func_item}><BtnNormal>记速写</BtnNormal></li>
       <hr className={styles.panel_hr} />
       <li className={styles.more_item}><BtnNormal>个人主页</BtnNormal></li>
       <li className={styles.more_item}><BtnNormal>设置</BtnNormal></li>
@@ -107,7 +107,7 @@ function NewFuncsList({ inPortal }) {
   return <>
     <ul className={inPortal ? styles.mobile : ''}>
       <li className={styles.func_item}><BtnNormal>创建消息</BtnNormal></li>
-      <li className={styles.func_item}><BtnNormal>打草稿</BtnNormal></li>
+      <li className={styles.func_item}><BtnNormal>记速写</BtnNormal></li>
     </ul>
   </>;
 }

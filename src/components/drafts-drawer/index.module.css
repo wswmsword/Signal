@@ -1,0 +1,11 @@
+.drawer_wrapper {
+  position: fixed;
+  bottom: 0;
+  right: 18px;
+  bottom: 5px;
+  transition: transform .2s;
+}
+
+.opened {
+  transform: translateY(-9px);
+}
