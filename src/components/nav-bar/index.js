@@ -51,17 +51,17 @@ const NavBar = props => {
       {! isMobile && <>
         {isLogin && <li className={styles.menu_item}>
           <BtnTrig selected={openedNewFunc} onClick={switchNewFunc}>创建</BtnTrig>
-          <MediaPanel opened={openedNewFunc} close={switchNewFunc} title={"创建"} childProps={{ openedNewFunc, close: switchNewFunc }} ChildComp={NewFuncsPanel} />
+          <MediaPanel opened={openedNewFunc} close={switchNewFunc} title={"创建"} childProps={{ openedNewFunc }} ChildComp={NewFuncsList} />
         </li>}
         <li className={`${styles.btn_more_wrapper} ${styles.menu_item}`}>
           <BtnDots selected={openedMore} onClick={switchMore} />
-          <MediaPanel opened={openedMore} close={switchMore} title={"更多"} childProps={{ openedMore, close: switchMore }} ChildComp={MorePanel} />
+          <MediaPanel opened={openedMore} close={switchMore} title={"更多"} childProps={{ openedMore }} ChildComp={MoreList} />
         </li>
       </>}
       { isMobile && <>
         <li className={`${styles.btn_more_wrapper} ${styles.menu_item}`}>
           <BtnDots selected={openedMoreMobile} onClick={switchMoreMobile} />
-          <MediaPanel opened={openedMoreMobile} close={switchMoreMobile} title={"更多"} childProps={{ openedMoreMobile, close: switchMoreMobile }} ChildComp={MorePanelMobile} />
+          <MediaPanel opened={openedMoreMobile} close={switchMoreMobile} title={"更多"} childProps={{ openedMoreMobile }} ChildComp={MoreListMobile} />
         </li>
       </>}
     </ul>
@@ -71,15 +71,10 @@ const NavBar = props => {
 /**
  * 顶栏更多功能组件（移动端）
  * @param {Boolean} inPortal 是否在 Portal 中
- * @param {Boolean} openedMoreMobile 是否开启状态
  */
-function MorePanelMobile({ inPortal, openedMoreMobile, close }) {
+function MoreListMobile({ inPortal }) {
   return <>
-    <ul className={`${styles.more_panel} ${openedMoreMobile ? styles.shown_panel : ''} ${inPortal ? styles.mobile : ''}`}>
-      {inPortal && <li className={styles.panel_title}>
-        <div>更多</div>
-        <button className={styles.close_sign} onClick={close}></button>
-      </li>}
+    <ul className={inPortal ? styles.mobile : ''}>
       <li className={styles.func_item}><BtnNormal>创建消息</BtnNormal></li>
       <li className={styles.func_item}><BtnNormal>打草稿</BtnNormal></li>
       <hr className={styles.panel_hr} />
@@ -93,15 +88,10 @@ function MorePanelMobile({ inPortal, openedMoreMobile, close }) {
 /**
  * 顶栏更多功能组件
  * @param {Boolean} inPortal 是否在 Portal 中
- * @param {Boolean} openedMore 是否开启状态
  */
-function MorePanel({ inPortal, openedMore, close }) {
+function MoreList({ inPortal }) {
   return <>
-    <ul className={`${styles.more_panel} ${openedMore ? styles.shown_panel : ''} ${inPortal ? styles.mobile : ''}`}>
-      {inPortal && <li className={styles.panel_title}>
-        <div>更多</div>
-        <button className={styles.close_sign} onClick={close}></button>
-      </li>}
+    <ul className={inPortal ? styles.mobile : ''}>
       <li className={styles.more_item}><BtnNormal>个人主页</BtnNormal></li>
       <li className={styles.more_item}><BtnNormal>设置</BtnNormal></li>
       <li className={styles.more_item}><BtnNormal>退出账户</BtnNormal></li>
@@ -112,15 +102,10 @@ function MorePanel({ inPortal, openedMore, close }) {
 /**
  * 顶栏创建功能组件
  * @param {Boolean} inPortal 是否在 Portal 中
- * @param {Boolean} openedNewFunc 是否开启状态
  */
-function NewFuncsPanel({ inPortal, openedNewFunc, close }) {
+function NewFuncsList({ inPortal }) {
   return <>
-    <ul className={`${styles.new_funcs_panel} ${openedNewFunc ? styles.shown_panel : ''} ${inPortal ? styles.mobile : ''}`}>
-      {inPortal && <li className={styles.panel_title}>
-        <div>创建</div>
-        <button className={styles.close_sign} onClick={close}></button>
-      </li>}
+    <ul className={inPortal ? styles.mobile : ''}>
       <li className={styles.func_item}><BtnNormal>创建消息</BtnNormal></li>
       <li className={styles.func_item}><BtnNormal>打草稿</BtnNormal></li>
     </ul>

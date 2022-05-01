@@ -1,0 +1,22 @@
+.panel_wrapper {
+  border: 1px solid #333;
+  width: auto;
+  position: absolute;
+  right: 0;
+  top: calc(100% + 5px);
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  border-radius: 3px;
+  background-color: white;
+  visibility: hidden;
+  opacity: 0;
+  transform: scale(.6);
+  transition: opacity .2s, transform .2s, visibility .2s;
+}
+
+.opened {
+  visibility: visible;
+  opacity: 1;
+  transform: scale(1);
+}

@@ -1,0 +1,41 @@
+.pannel_wrapper {
+  border: 1px solid #333;
+  width: 230px;
+  box-sizing: border-box;
+  border-radius: 9px;
+  padding: 9px;
+  position: relative;
+  background-color: white;
+  visibility: hidden;
+  opacity: 0;
+  transform: scale(.6);
+  transition: opacity .2s, transform .2s, visibility .2s;
+}
+
+.opened {
+  visibility: visible;
+  opacity: 1;
+  transform: scale(1);
+}
+
+.title_wrapper {
+  color: #333;
+  padding: 6px 15px;
+  margin-bottom: 5px;
+  background-color: #f8f8f8;
+  border-radius: 6px 6px 2px 2px;
+  font-weight: bold;
+  border: 1px solid #e4e4e4;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn_close {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 0;
+  background-color: #dd3303;
+  cursor: pointer;
+}
