@@ -16,7 +16,7 @@ const Popover = props => {
   };
   const escPress = useKeyPress("Escape");
   useEffect(() => {
-    if (escPress) {
+    if (opened && escPress) {
       close()
     }
   }, [escPress])
