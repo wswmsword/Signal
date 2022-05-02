@@ -10,11 +10,35 @@
   padding-right: 11px;
 }
 
+.coal {
+  color: rgb(69, 69, 69);
+}
+
+.silver {
+  color: #aaa;
+}
+
 .trigger:hover {
   color: #333;
 }
 
+.coal:hover {
+  color: #333;
+}
+
+.silver:hover {
+  color: #333;
+}
+
 .trigger.selected {
+  color: #333;
+}
+
+.coal.selected {
+  color: #333;
+}
+
+.silver.selected {
   color: #333;
 }
 
@@ -28,7 +52,16 @@
   height: 4px;
   border-bottom: 2px solid #aaa;
   border-right: 2px solid #aaa;
+}
 
+.coal::after {
+  border-bottom: 2px solid rgb(69, 69, 69);
+  border-right: 2px solid rgb(69, 69, 69);
+}
+
+.silver::after {
+  border-bottom: 2px solid #aaa;
+  border-right: 2px solid #aaa;
 }
 
 .trigger:hover::after {
@@ -36,7 +69,27 @@
   border-right: 2px solid #333;
 }
 
+.coal:hover::after {
+  border-bottom: 2px solid #333;
+  border-right: 2px solid #333;
+}
+
+.silver:hover::after {
+  border-bottom: 2px solid #333;
+  border-right: 2px solid #333;
+}
+
 .trigger.selected::after {
+  border-bottom: 2px solid #333;
+  border-right: 2px solid #333;
+}
+
+.coal.selected::after {
+  border-bottom: 2px solid #333;
+  border-right: 2px solid #333;
+}
+
+.silver.selected::after {
   border-bottom: 2px solid #333;
   border-right: 2px solid #333;
 }

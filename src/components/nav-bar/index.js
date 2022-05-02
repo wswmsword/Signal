@@ -1,5 +1,6 @@
 
 import styles from "./index.module.css";
+import pListStyles from "./panel-list.module.css";
 import BtnNormal from "../btn-normal";
 import BtnTrig from "../btn-trigger";
 import BtnDots from "../btn-dots";
@@ -13,6 +14,8 @@ import useMobile from "../../hooks/useMobile";
 const NavBar = props => {
 
   const isLogin = true;
+  // 收藏集
+  const [openedCollection, setOpenedCollection] = useState(false);
   // 创建
   const [openedNewFunc, setOpenedNewFunc] = useState(false);
   // 更多
@@ -21,6 +24,10 @@ const NavBar = props => {
   const [openedMoreMobile, setOpenedMoreMobile] = useState(false);
   // 是否是手机尺寸
   const isMobile = useMobile();
+
+  const switchCollection = () => {
+    setOpenedCollection(v => !v);
+  };
 
   const switchNewFunc = () => {
     setOpenedNewFunc(v => !v);
@@ -38,7 +45,8 @@ const NavBar = props => {
     <div className={`${styles.nav_left} ${styles.icon}`}>Signal</div>
     <ul className={`${styles.nav_middle} ${styles.nav_items}`}>
       {isLogin && <li className={`${styles.nav_item}`}>
-        <BtnNormal colorType="dark">收藏集</BtnNormal>
+        <BtnTrig selected={openedCollection} onClick={switchCollection} colorType="coal">收藏集</BtnTrig>
+        <MediaPanel opened={openedCollection} close={switchCollection} title={"收藏集"} attachedRowPos="left" attachedColPos="bottom" childProps={{ openedCollection }} ChildComp={CollectionList} />
       </li>}
       <li className={`${styles.nav_item}`}>
         <BtnNormal colorType="dark">最新</BtnNormal>
@@ -68,19 +76,31 @@ const NavBar = props => {
   </nav>;
 };
 
+function CollectionList({ inPortal }) {
+  return <>
+    <ul className={inPortal ? pListStyles.mobile : ''}>
+      <li className={pListStyles.list_item}><BtnNormal>想去的地方</BtnNormal></li>
+      <li className={pListStyles.list_item}><BtnNormal>中文歌</BtnNormal></li>
+      <li className={pListStyles.list_item}><BtnNormal>绘画技巧</BtnNormal></li>
+      <li className={pListStyles.list_item}><BtnNormal>算法</BtnNormal></li>
+      <li className={pListStyles.list_item}><BtnNormal>开发</BtnNormal></li>
+    </ul>
+  </>;
+}
+
 /**
  * 顶栏更多功能组件（移动端）
  * @param {Boolean} inPortal 是否在 Portal 中
  */
 function MoreListMobile({ inPortal }) {
   return <>
-    <ul className={inPortal ? styles.mobile : ''}>
-      <li className={styles.func_item}><BtnNormal>创建消息</BtnNormal></li>
-      <li className={styles.func_item}><BtnNormal>记速写</BtnNormal></li>
-      <hr className={styles.panel_hr} />
-      <li className={styles.more_item}><BtnNormal>个人主页</BtnNormal></li>
-      <li className={styles.more_item}><BtnNormal>设置</BtnNormal></li>
-      <li className={styles.more_item}><BtnNormal>退出账户</BtnNormal></li>
+    <ul className={inPortal ? pListStyles.mobile : ''}>
+      <li className={pListStyles.list_item}><BtnNormal>创建消息</BtnNormal></li>
+      <li className={pListStyles.list_item}><BtnNormal>记速写</BtnNormal></li>
+      <hr className={pListStyles.panel_hr} />
+      <li className={pListStyles.list_item}><BtnNormal>个人主页</BtnNormal></li>
+      <li className={pListStyles.list_item}><BtnNormal>设置</BtnNormal></li>
+      <li className={pListStyles.list_item}><BtnNormal>退出账户</BtnNormal></li>
     </ul>
   </>;
 }
@@ -91,10 +111,10 @@ function MoreListMobile({ inPortal }) {
  */
 function MoreList({ inPortal }) {
   return <>
-    <ul className={inPortal ? styles.mobile : ''}>
-      <li className={styles.more_item}><BtnNormal>个人主页</BtnNormal></li>
-      <li className={styles.more_item}><BtnNormal>设置</BtnNormal></li>
-      <li className={styles.more_item}><BtnNormal>退出账户</BtnNormal></li>
+    <ul className={inPortal ? pListStyles.mobile : ''}>
+      <li className={pListStyles.list_item}><BtnNormal>个人主页</BtnNormal></li>
+      <li className={pListStyles.list_item}><BtnNormal>设置</BtnNormal></li>
+      <li className={pListStyles.list_item}><BtnNormal>退出账户</BtnNormal></li>
     </ul>
   </>;
 }
@@ -105,9 +125,9 @@ function MoreList({ inPortal }) {
  */
 function NewFuncsList({ inPortal }) {
   return <>
-    <ul className={inPortal ? styles.mobile : ''}>
-      <li className={styles.func_item}><BtnNormal>创建消息</BtnNormal></li>
-      <li className={styles.func_item}><BtnNormal>记速写</BtnNormal></li>
+    <ul className={inPortal ? pListStyles.mobile : ''}>
+      <li className={pListStyles.list_item}><BtnNormal>创建消息</BtnNormal></li>
+      <li className={pListStyles.list_item}><BtnNormal>记速写</BtnNormal></li>
     </ul>
   </>;
 }

@@ -15,6 +15,31 @@
   transition: opacity .2s, transform .2s, visibility .2s;
 }
 
+.col_top {
+  top: auto;
+  bottom: calc(100% + 5px);
+}
+
+.col_bottom {
+  top: calc(100% + 5px);
+  bottom: auto;
+}
+
+.col_middle {
+  top: 50%;
+  bottom: auto;
+}
+
+.row_left {
+  left: 0;
+  right: auto;
+}
+
+.row_right {
+  left: auto;
+  right: 0;
+}
+
 .opened {
   visibility: visible;
   opacity: 1;

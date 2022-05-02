@@ -4,7 +4,7 @@ import PanelAttached from "../panel-attached";
 import Popover from "../popover/index.js";
 
 const MediaPanel = props => {
-  const { title, opened, close, ChildComp, childProps } = props;
+  const { title, opened, close, ChildComp, childProps, attachedRowPos, attachedColPos } = props;
   const isMobileSize = useMobile();
 
   return <>
@@ -14,7 +14,7 @@ const MediaPanel = props => {
           <ChildComp inPortal={true} {...childProps} />
         </Panel>
       </Popover> :
-      <PanelAttached opened={opened}>
+      <PanelAttached opened={opened} rowPos={attachedRowPos} colPos={attachedColPos}>
         <ChildComp {...childProps} />
       </PanelAttached>}
   </>
