@@ -1,0 +1,21 @@
+.btn_b {
+  border: 0;
+  font-size: 15px;
+  height: 33px;
+  padding: 0px 8px;
+  border-radius: 5px;
+
+  background-color: #fff;
+  border: 1px solid #d1d1d1;
+  color: #767676;
+  font-weight: bold;
+
+  cursor: pointer;
+  transition: border .3s, color .3s;
+}
+
+.btn_b:hover {
+  color: #333;
+  border: 1px solid #333;
+  transition: border .05s, color .05s;
+}

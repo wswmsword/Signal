@@ -3,7 +3,7 @@
   flex-grow: 0;
   white-space: nowrap;
   text-align: right;
-  padding: 3px 0;
+  height: 33px;
 }
 
 .list_item + .list_item {
@@ -21,6 +21,6 @@
 
 .mobile .list_item {
   text-align: left;
-  padding: 6px 15px;
+  padding: 0 15px;
   border: 0;
 }

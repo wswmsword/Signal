@@ -6,8 +6,8 @@
   top: calc(100% + 5px);
   display: flex;
   flex-direction: column;
-  padding: 5px;
-  border-radius: 3px;
+  padding: 9px;
+  border-radius: 9px;
   background-color: white;
   visibility: hidden;
   opacity: 0;

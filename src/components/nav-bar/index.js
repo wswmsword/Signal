@@ -1,9 +1,10 @@
 
 import styles from "./index.module.css";
 import pListStyles from "./panel-list.module.css";
-import BtnNormal from "../btn-normal";
+import BtnPure from "../btn-pure";
 import BtnTrig from "../btn-trigger";
 import BtnDots from "../btn-dots";
+import CollectionList from "./collection-list";
 import { useState } from "react";
 import MediaPanel from "../media-panel";
 import useMobile from "../../hooks/useMobile";
@@ -49,10 +50,10 @@ const NavBar = props => {
         <MediaPanel opened={openedCollection} close={switchCollection} title={"收藏集"} attachedRowPos="left" attachedColPos="bottom" childProps={{ openedCollection }} ChildComp={CollectionList} />
       </li>}
       <li className={`${styles.nav_item}`}>
-        <BtnNormal colorType="dark">最新</BtnNormal>
+        <BtnPure colorType="dark">最新</BtnPure>
       </li>
       <li className={`${styles.nav_item}`}>
-        <BtnNormal colorType="dark">速写</BtnNormal>
+        <BtnPure colorType="dark">速写</BtnPure>
       </li>
     </ul>
     <ul className={`${styles.nav_right} ${styles.nav_menu}`}>
@@ -76,18 +77,6 @@ const NavBar = props => {
   </nav>;
 };
 
-function CollectionList({ inPortal }) {
-  return <>
-    <ul className={inPortal ? pListStyles.mobile : ''}>
-      <li className={pListStyles.list_item}><BtnNormal>想去的地方</BtnNormal></li>
-      <li className={pListStyles.list_item}><BtnNormal>中文歌</BtnNormal></li>
-      <li className={pListStyles.list_item}><BtnNormal>绘画技巧</BtnNormal></li>
-      <li className={pListStyles.list_item}><BtnNormal>算法</BtnNormal></li>
-      <li className={pListStyles.list_item}><BtnNormal>开发</BtnNormal></li>
-    </ul>
-  </>;
-}
-
 /**
  * 顶栏更多功能组件（移动端）
  * @param {Boolean} inPortal 是否在 Portal 中
@@ -95,12 +84,12 @@ function CollectionList({ inPortal }) {
 function MoreListMobile({ inPortal }) {
   return <>
     <ul className={inPortal ? pListStyles.mobile : ''}>
-      <li className={pListStyles.list_item}><BtnNormal>创建消息</BtnNormal></li>
-      <li className={pListStyles.list_item}><BtnNormal>记速写</BtnNormal></li>
+      <li className={pListStyles.list_item}><BtnPure size="stretch">创建消息</BtnPure></li>
+      <li className={pListStyles.list_item}><BtnPure size="stretch">记速写</BtnPure></li>
       <hr className={pListStyles.panel_hr} />
-      <li className={pListStyles.list_item}><BtnNormal>个人主页</BtnNormal></li>
-      <li className={pListStyles.list_item}><BtnNormal>设置</BtnNormal></li>
-      <li className={pListStyles.list_item}><BtnNormal>退出账户</BtnNormal></li>
+      <li className={pListStyles.list_item}><BtnPure size="stretch">个人主页</BtnPure></li>
+      <li className={pListStyles.list_item}><BtnPure size="stretch">设置</BtnPure></li>
+      <li className={pListStyles.list_item}><BtnPure size="stretch">退出账户</BtnPure></li>
     </ul>
   </>;
 }
@@ -112,9 +101,9 @@ function MoreListMobile({ inPortal }) {
 function MoreList({ inPortal }) {
   return <>
     <ul className={inPortal ? pListStyles.mobile : ''}>
-      <li className={pListStyles.list_item}><BtnNormal>个人主页</BtnNormal></li>
-      <li className={pListStyles.list_item}><BtnNormal>设置</BtnNormal></li>
-      <li className={pListStyles.list_item}><BtnNormal>退出账户</BtnNormal></li>
+      <li className={pListStyles.list_item}><BtnPure size="stretch">个人主页</BtnPure></li>
+      <li className={pListStyles.list_item}><BtnPure size="stretch">设置</BtnPure></li>
+      <li className={pListStyles.list_item}><BtnPure size="stretch">退出账户</BtnPure></li>
     </ul>
   </>;
 }
@@ -126,8 +115,8 @@ function MoreList({ inPortal }) {
 function NewFuncsList({ inPortal }) {
   return <>
     <ul className={inPortal ? pListStyles.mobile : ''}>
-      <li className={pListStyles.list_item}><BtnNormal>创建消息</BtnNormal></li>
-      <li className={pListStyles.list_item}><BtnNormal>记速写</BtnNormal></li>
+      <li className={pListStyles.list_item}><BtnPure size="stretch">创建消息</BtnPure></li>
+      <li className={pListStyles.list_item}><BtnPure size="stretch">记速写</BtnPure></li>
     </ul>
   </>;
 }
