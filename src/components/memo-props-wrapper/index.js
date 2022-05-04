@@ -5,11 +5,13 @@
  * @returns 有属性缓存的新组件
  */
 const MemoPropsWrapper = ({WrappedComp, wrappedProps}) => {
-  return props => <>
-    <WrappedComp {...wrappedProps}>
-      {props.children}
-    </WrappedComp>
-  </>
+  return function MemoPropsWrapper(props) {
+    return <>
+      <WrappedComp {...wrappedProps}>
+        {props.children}
+      </WrappedComp>
+    </>;
+  }
 };
 
 export default MemoPropsWrapper;
