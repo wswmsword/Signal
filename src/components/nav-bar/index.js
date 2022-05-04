@@ -43,11 +43,11 @@ const NavBar = props => {
   };
 
   return <nav className={styles.nav_bar_wrapper}>
-    <div className={`${styles.nav_left} ${styles.icon}`}>Signal</div>
+    <div className={`${styles.nav_left} ${styles.icon}`}>Sig<span className={styles.seek}>n</span>al</div>
     <ul className={`${styles.nav_middle} ${styles.nav_items}`}>
       {isLogin && <li className={`${styles.nav_item}`}>
         <BtnTrig selected={openedCollection} onClick={switchCollection} colorType="coal">收藏集</BtnTrig>
-        <MediaPanel opened={openedCollection} close={switchCollection} title={"收藏集"} attachedRowPos="left" attachedColPos="bottom" childProps={{ openedCollection }} ChildComp={CollectionList} />
+        <MediaPanel opened={openedCollection} close={switchCollection} title={"收藏集"} attachedRowPos="left" attachedColPos="bottom" childProps={{ openedCollection, switchCollection }} ChildComp={CollectionList} />
       </li>}
       <li className={`${styles.nav_item}`}>
         <BtnPure colorType="dark">最新</BtnPure>

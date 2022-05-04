@@ -22,12 +22,35 @@
 }
 
 .funcs_wrapper {
-  height: 133px;
   width: 100%;
   height: 33px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 9px;
+}
+
+.func_item {
+  flex-grow: 1;
+  height: 33px;
+}
+
+.input_wrapper {
+  padding: 9px 0;
+}
+
+.col_funcs_wrapper {
+  width: 100%;
+  height: 33px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 9px;
+}
+
+.col_func {
+  height: 33px;
+  flex-grow: 1;
 }
 
 /* mobild */
@@ -41,6 +64,6 @@
 }
 
 .mobile.funcs_wrapper {
-  padding: 0 15px;
+  /* padding: 0 15px; */
   box-sizing: border-box;
 }

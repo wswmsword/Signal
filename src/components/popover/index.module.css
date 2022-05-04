@@ -16,3 +16,15 @@
   background-color: rgba(210,210,210,0.6);
   visibility: visible;
 }
+
+.tb_wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  visibility: hidden;
+  z-index: 3;
+}
+.visible_tb {
+  visibility: visible;
+}
