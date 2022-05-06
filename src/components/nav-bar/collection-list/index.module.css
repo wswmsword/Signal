@@ -53,6 +53,29 @@
   flex-grow: 1;
 }
 
+.c_editor_wrapper {
+  width: 100%;
+}
+
+.c_editor_item {
+  flex-shrink: 0;
+  flex-grow: 0;
+  white-space: nowrap;
+  height: 33px;
+  color: #aaa;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 9px;
+}
+
+.ce_item_middle {
+  flex-grow: 1;
+  flex-shrink: 1;
+  min-width: 0;
+  font-size: 15px;
+}
+
 /* mobild */
 .mobile.list_wrapper {
   width: 100%;
