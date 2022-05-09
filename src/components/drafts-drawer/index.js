@@ -1,26 +1,49 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import PanelDrawer from "../panel-drawer";
 import Portal from "../portal/index.js";
 import styles from "./index.module.css";
+import draftsData from "./fake.js";
+import BtnBorder from "../btn-border";
 
+/**
+ * 速写抽屉组件
+ */
 const DraftsDrawer = props => {
+  const [drafts] = useState(draftsData)
   const [opened, setOpened] = useState(false);
+  const [message, setMessage] = useState('');
 
   const trigger = () => {
     setOpened(v => !v);
   };
 
+  const handleMessageChange = (e) => {
+    setMessage(e.target.value);
+  };
+
   return <Portal>
     <div className={`${styles.drawer_wrapper} ${opened ? styles.opened : ''}`}>
       <PanelDrawer opened={opened} trigger={trigger} title="记速写">
-        <ul>
-          <li>信言不美，美言不信。善者不辩，辩者不善。知者不博，博者不知。</li>
-          <li>爱是海，喜欢是海啸，而人是孤岛。</li>
-          <li>世界很大，你要说话。</li>
-          <li>不能因嘈杂而断联。Keep Online, Get Back.</li>
-          <li>看过了你，才知道沉沦的美丽。</li>
-          <li>晚安～</li>
-        </ul>
+        <div className={styles.drawer_inner}>
+          <ul className={styles.drafts_list}>
+            {drafts.map(draft => <React.Fragment key={draft.id}>
+              <li className={`${styles.draft_item}`}><div className="ellipsis-2">{draft.content}</div></li>
+            </React.Fragment>)}
+          </ul>
+          <div className={styles.editor_wrapper}>
+            <div className={styles.text_area_wrapper}>
+              <textarea
+                className={`${styles.text_message} groove_shadow`}
+                type="text"
+                value={message}
+                onChange={handleMessageChange} />
+            </div>
+            <div className={styles.draft_funcs_wrapper}>
+              <div className={styles.btn_flow}><BtnBorder>放大</BtnBorder></div>
+              <div className={styles.btn_new}><BtnBorder>创建</BtnBorder></div>
+            </div>
+          </div>
+        </div>
       </PanelDrawer>
     </div>
   </Portal>;

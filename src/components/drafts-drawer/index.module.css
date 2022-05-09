@@ -9,3 +9,51 @@
 .opened {
   transform: translateY(-9px);
 }
+
+.drafts_list {
+  /* border: 1px solid darkolivegreen; */
+  max-height: 320px;
+  overflow-y: auto;
+  margin: 9px auto;
+}
+
+.draft_item {
+  font-size: 15px;
+  color: rgb(69, 69, 69);
+  padding: 6px 18px;
+  line-height: 20px;
+}
+
+.draft_item + .draft_item {
+  border-top: 1px solid #e4e4e4
+}
+
+.editor_wrapper {
+  /* border: 1px solid black; */
+}
+
+.text_area_wrapper {
+  width: 100%;
+  margin: 9px auto;
+  font-size: 0;
+}
+.text_message {
+  width: 100%;
+  border-radius: 4px;
+  padding: 3px 5px;
+  line-height: 20px;
+  font-size: 15px;
+  height: 180px;
+  resize: none;
+  box-sizing: border-box;
+  color: #222;
+}
+
+.draft_funcs_wrapper {
+  display: flex;
+  justify-content: flex-end;
+  gap: 9px;
+}
+.btn_new {
+  /* align-items: flex-end; */
+}
