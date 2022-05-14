@@ -5,7 +5,6 @@ import MemoPropsWrapper from "../../memo-props-wrapper";
 import PopoverPanel from "../../popover-panel";
 import InputShadow from "../../input-shadow";
 import React, { useState } from "react";
-import PanelReadOnly from "../../panel-read-only";
 
 export default function CollectionList({ inPortal, switchCollection }) {
   const [collectionList] = useState([{
@@ -83,20 +82,9 @@ export default function CollectionList({ inPortal, switchCollection }) {
         </li>
       </React.Fragment>)}
     </ul>
-    <div className={`${inPortal ? styles.mobile : ''} ${styles.funcs_wrapper}`}>
-      <div className={styles.func_item}><BtnBorder size="stretch" onClick={switchCollectionEditor}>编辑</BtnBorder></div>
+    {/* 第二层弹窗，在移动设备上隐藏 */}
+    {! inPortal && <div className={`${inPortal ? styles.mobile : ''} ${styles.funcs_wrapper}`}>
       <div className={styles.func_item}><BtnBorder size="stretch" onClick={switchNewFunc}>新建收藏集</BtnBorder></div>
-      <PopoverPanel title="编辑收藏集" opened={openedCollectionEditor} close={switchCollectionEditor}>
-        <ul className={`${styles.c_editor_wrapper}`}>
-          {collectionList.map(collection => <React.Fragment key={collection.id}>
-            <li className={styles.c_editor_item}>
-              <div className={styles.ce_item_left}><BtnBorder onClick={() => openEditPopover(collection.title)}>编辑</BtnBorder></div>
-              <div className={`${styles.ce_item_middle} ellipsis-1`}>{collection.title}</div>
-              <div className={styles.ce_item_right}><BtnBorder>删除</BtnBorder></div>
-            </li>
-          </React.Fragment>)}
-        </ul>
-      </PopoverPanel>
       <PopoverPanel title="新建收藏集" opened={openedNewFunc} close={switchNewFunc} antiTouch={true}>
         <div className={styles.input_wrapper}>
           <InputShadow />
@@ -106,18 +94,6 @@ export default function CollectionList({ inPortal, switchCollection }) {
           <div className={styles.col_func}><BtnBorder size="stretch" onClick={newCollection}>新建</BtnBorder></div>
         </div>
       </PopoverPanel>
-      <PopoverPanel title={`重命名“${editedTitle}”`} opened={openedEditPopover} close={switchEditPopover}>
-        <div className={styles.input_wrapper}>
-          <InputShadow value={editedTitle} />
-        </div>
-        <div className={styles.col_funcs_wrapper}>
-          <div className={styles.col_func}><BtnBorder size="stretch" onClick={switchEditPopover}>取消</BtnBorder></div>
-          <div className={styles.col_func}><BtnBorder size="stretch" onClick={newCollection}>确认</BtnBorder></div>
-        </div>
-      </PopoverPanel>
-      {/* <PopoverPanel title="删除">
-        <PanelReadOnly opened={true} title={'删除'}></PanelReadOnly>
-      </PopoverPanel> */}
-    </div>
+    </div>}
   </>;
 }
