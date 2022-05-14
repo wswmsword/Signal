@@ -8,7 +8,7 @@ import BtnBorder from "../btn-border";
 /**
  * 速写抽屉组件
  */
-const DraftsDrawer = props => {
+const DraftsDrawer = () => {
   const [drafts] = useState(draftsData)
   const [opened, setOpened] = useState(false);
   const [message, setMessage] = useState('');
@@ -17,6 +17,7 @@ const DraftsDrawer = props => {
     setOpened(v => !v);
   };
 
+  // @ts-ignore
   const handleMessageChange = (e) => {
     setMessage(e.target.value);
   };
@@ -34,7 +35,6 @@ const DraftsDrawer = props => {
             <div className={styles.text_area_wrapper}>
               <textarea
                 className={`${styles.text_message} groove_shadow`}
-                type="text"
                 value={message}
                 onChange={handleMessageChange} />
             </div>
