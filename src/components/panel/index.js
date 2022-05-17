@@ -1,10 +1,22 @@
 import styles from "./index.module.css";
+import transition from "./transition.module.css";
+import { CSSTransition } from "react-transition-group";
 
 const Panel = props => {
   const { opened, close, title } = props;
 
-  return <>
-    <div className={`${styles.pannel_wrapper} ${opened ? styles.opened : ''}`}>
+  return <CSSTransition
+    in={opened}
+    timeout={200}
+    classNames={{
+      enter: transition.panel_enter,
+      enterActive: transition.panel_enter_active,
+      exit: transition.panel_exit,
+      exitActive: transition.panel_exit_active,
+    }}
+    appear={true}
+    unmountOnExit>
+    <div className={`${styles.pannel_wrapper}`}>
       <div className={styles.title_wrapper}>
         <div className={styles.title}>{title || "默认标题"}</div>
         <div className={styles.close_wrapper}>
@@ -15,7 +27,7 @@ const Panel = props => {
         { props.children }
       </div>
     </div>
-  </>
+  </CSSTransition>
 };
 
 export default Panel;

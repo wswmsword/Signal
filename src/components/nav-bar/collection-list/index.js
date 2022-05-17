@@ -25,36 +25,13 @@ export default function CollectionList({ inPortal, switchCollection }) {
   }])
   // 新建收藏集弹窗
   const [openedNewFunc, setOpenedNewFunc] = useState(false);
-  // 编辑收藏集列表弹窗
-  const [openedCollectionEditor, setOpenedCollectionEditor] = useState(false);
-  // 编辑收藏集弹窗
-  const [openedEditPopover, setOpenedEditPopover] = useState(false);
-  // 被编辑的收藏集名称
-  const [editedTitle, setEditedTitle] = useState('');
-
-  const switchEditPopover = () => {
-    setOpenedEditPopover(v => !v);
-    setOpenedCollectionEditor(v => !v);
-  };
-
-  const switchCollectionEditor = () => {
-    setOpenedCollectionEditor(v => !v);
-    switchCollection(v => !v);
-  };
 
   const switchNewFunc = () => {
     setOpenedNewFunc(v => !v);
-    switchCollection(v => !v);
   };
 
   const newCollection = () => {
     console.log("新建收藏集");
-  };
-
-  // 打开编辑收藏集弹窗
-  const openEditPopover = title => {
-    setEditedTitle(title);
-    switchEditPopover();
   };
 
   const pureBtnStyles = {

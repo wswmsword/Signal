@@ -1,4 +1,6 @@
 import styles from "./index.module.css";
+import transition from "./transition.module.css";
+import { CSSTransition } from "react-transition-group";
 
 const COL_POS = {
   TOP: "top",
@@ -28,11 +30,20 @@ const PanelAttached = props => {
   const { opened, colPos, rowPos } = props;
   const colPosClass = COL_CLASS[colPos];
   const rowPosClass = ROW_CLASS[rowPos];
-  return <>
-    <div className={`${styles.panel_wrapper} ${opened ? styles.opened : ''} ${colPosClass} ${rowPosClass}`}>
+  return <CSSTransition
+    in={opened}
+    timeout={200}
+    classNames={{
+      enter: transition.panel_enter,
+      enterActive: transition.panel_enter_active,
+      exit: transition.panel_exit,
+      exitActive: transition.panel_exit_active,
+    }}
+    unmountOnExit>
+    <div className={`${styles.panel_wrapper} ${colPosClass} ${rowPosClass}`}>
       {props.children}
     </div>
-  </>;
+  </CSSTransition>;
 };
 
 export default PanelAttached;

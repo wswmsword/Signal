@@ -1,0 +1,18 @@
+.panel_enter {
+  opacity: 0;
+  transform: scale(.6);
+}
+.panel_enter_active {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity .2s, transform .2s;
+}
+.panel_exit {
+  opacity: 1;
+  transform: scale(1);
+}
+.panel_exit_active {
+  opacity: 0;
+  transform: scale(.6);
+  transition: opacity .2s, transform .2s;
+}

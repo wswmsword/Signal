@@ -1,7 +1,5 @@
 import useMobile from "../../hooks/useMobile";
-import Panel from "../panel";
 import PanelAttached from "../panel-attached";
-import Popover from "../popover/index.js";
 import PopoverPanel from "../popover-panel";
 
 const MediaPanel = props => {

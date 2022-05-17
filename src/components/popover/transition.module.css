@@ -1,0 +1,14 @@
+.popover_bg_enter {
+  background-color: transparent;
+}
+.popover_bg_enter_active {
+  background-color: rgba(210,210,210,0.6);
+  transition: background-color .2s;
+}
+.popover_bg_exit {
+  background-color: rgba(210,210,210,0.6);
+}
+.popover_bg_exit_active {
+  background-color: transparent;
+  transition: background-color .2s;
+}

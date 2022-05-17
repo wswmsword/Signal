@@ -9,10 +9,6 @@
   padding: 9px;
   border-radius: 9px;
   background-color: white;
-  visibility: hidden;
-  opacity: 0;
-  transform: scale(.6);
-  transition: opacity .2s, transform .2s, visibility .2s;
 }
 
 .col_top {
@@ -38,10 +34,4 @@
 .row_right {
   left: auto;
   right: 0;
-}
-
-.opened {
-  visibility: visible;
-  opacity: 1;
-  transform: scale(1);
 }

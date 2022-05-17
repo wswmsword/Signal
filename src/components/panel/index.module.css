@@ -6,16 +6,6 @@
   padding: 9px;
   position: relative;
   background-color: white;
-  visibility: hidden;
-  opacity: 0;
-  transform: scale(.6);
-  transition: opacity .2s, transform .2s, visibility .2s;
-}
-
-.opened {
-  visibility: visible;
-  opacity: 1;
-  transform: scale(1);
 }
 
 .title_wrapper {
