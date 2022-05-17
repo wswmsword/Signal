@@ -3,12 +3,13 @@ import styles from "./index.module.css";
 import transition from "./transition.module.css"
 import useKeyPress from "../../hooks/useKeyPress.js";
 import TouchBlock from "../touch-block";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { CSSTransition } from "react-transition-group";
 
 const Popover = props => {
   const { opened, close, antiTouch } = props;
   const [openedTouchBlock, setOpenedTouchBlock] = useState(false);
+  const nodeRef = useRef(null);
 
   // 切换防误触弹窗
   const switchTouchBlock = () => {
@@ -47,16 +48,17 @@ const Popover = props => {
 
   return <Portal>
     <CSSTransition
-    in={opened}
-    timeout={200}
-    classNames={{
-      enter: transition.popover_bg_enter,
-      enterActive: transition.popover_bg_enter_active,
-      exit: transition.popover_bg_exit,
-      exitActive: transition.popover_bg_exit_active,
-    }}
-    unmountOnExit>
-      <div className={`${styles.popover_bg}`} onClick={closeHandler}>
+      nodeRef={nodeRef}
+      in={opened}
+      timeout={200}
+      classNames={{
+        enter: transition.popover_bg_enter,
+        enterActive: transition.popover_bg_enter_active,
+        exit: transition.popover_bg_exit,
+        exitActive: transition.popover_bg_exit_active,
+      }}
+      unmountOnExit>
+      <div ref={nodeRef} className={`${styles.popover_bg}`} onClick={closeHandler}>
         <div>
           {props.children}
           <div className={`${styles.tb_wrapper} ${openedTouchBlock ? styles.visible_tb : ''}`}>

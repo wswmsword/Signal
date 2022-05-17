@@ -1,6 +1,7 @@
 import styles from "./index.module.css";
 import transition from "./transition.module.css";
 import { CSSTransition } from "react-transition-group";
+import { useRef } from "react";
 
 const COL_POS = {
   TOP: "top",
@@ -30,7 +31,9 @@ const PanelAttached = props => {
   const { opened, colPos, rowPos } = props;
   const colPosClass = COL_CLASS[colPos];
   const rowPosClass = ROW_CLASS[rowPos];
+  const nodeRef = useRef(null);
   return <CSSTransition
+    nodeRef={nodeRef}
     in={opened}
     timeout={200}
     classNames={{
@@ -40,7 +43,7 @@ const PanelAttached = props => {
       exitActive: transition.panel_exit_active,
     }}
     unmountOnExit>
-    <div className={`${styles.panel_wrapper} ${colPosClass} ${rowPosClass}`}>
+    <div ref={nodeRef} className={`${styles.panel_wrapper} ${colPosClass} ${rowPosClass}`}>
       {props.children}
     </div>
   </CSSTransition>;

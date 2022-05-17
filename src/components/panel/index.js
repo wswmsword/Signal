@@ -1,11 +1,14 @@
 import styles from "./index.module.css";
 import transition from "./transition.module.css";
 import { CSSTransition } from "react-transition-group";
+import { useRef } from "react";
 
 const Panel = props => {
   const { opened, close, title } = props;
+  const nodeRef = useRef(null);
 
   return <CSSTransition
+    nodeRef={nodeRef}
     in={opened}
     timeout={200}
     classNames={{
@@ -16,7 +19,7 @@ const Panel = props => {
     }}
     appear={true}
     unmountOnExit>
-    <div className={`${styles.pannel_wrapper}`}>
+    <div ref={nodeRef} className={`${styles.pannel_wrapper}`}>
       <div className={styles.title_wrapper}>
         <div className={styles.title}>{title || "默认标题"}</div>
         <div className={styles.close_wrapper}>
