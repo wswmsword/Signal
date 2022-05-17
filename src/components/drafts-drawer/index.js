@@ -4,6 +4,7 @@ import Portal from "../portal/index.js";
 import styles from "./index.module.css";
 import draftsData from "./fake.js";
 import BtnBorder from "../btn-border";
+import useMobile from "../../hooks/useMobile";
 
 /**
  * 速写抽屉组件
@@ -12,6 +13,8 @@ const DraftsDrawer = () => {
   const [drafts] = useState(draftsData)
   const [opened, setOpened] = useState(false);
   const [message, setMessage] = useState('');
+
+  const isMobileSize = useMobile();
 
   const trigger = () => {
     setOpened(v => !v);
@@ -34,7 +37,7 @@ const DraftsDrawer = () => {
           <div className={styles.editor_wrapper}>
             <div className={styles.text_area_wrapper}>
               <textarea
-                className={`${styles.text_message} groove_shadow`}
+                className={`${styles.text_message} groove_shadow ${isMobileSize ? styles.mobile : ''}`}
                 value={message}
                 onChange={handleMessageChange} />
             </div>

@@ -57,3 +57,7 @@
 .btn_new {
   /* align-items: flex-end; */
 }
+
+.mobile.text_message {
+  height: 120px;
+}
