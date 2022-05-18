@@ -3,6 +3,9 @@ import "./App.css";
 import NavBar from "./components/nav-bar";
 import DraftsDrawer from "./components/drafts-drawer";
 import {useState} from 'react';
+import Drafts from "./components/pages/drafts";
+import Latest from "./components/pages/latest";
+import { Routes, Route } from "react-router-dom";
 
 function App() {
   const [show, toggle] = useState(false);
@@ -24,6 +27,10 @@ function App() {
           Learn React !!
         </a>
       </header> */}
+      <Routes>
+        <Route path="/" element={<Latest />} />
+        <Route path="/drafts" element={<Drafts />} />
+      </Routes>
       <DraftsDrawer />
     </div>
   );

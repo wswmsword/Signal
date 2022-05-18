@@ -8,6 +8,7 @@ import CollectionList from "./collection-list";
 import { useState } from "react";
 import MediaPanel from "../media-panel";
 import useMobile from "../../hooks/useMobile";
+import { Link } from "react-router-dom";
 
 /**
  * 顶部导航栏组件
@@ -43,17 +44,20 @@ const NavBar = props => {
   };
 
   return <nav className={styles.nav_bar_wrapper}>
-    <div className={`${styles.nav_left} ${styles.icon}`}>Sig<span className={styles.seek}>n</span>al</div>
+    <div className={`${styles.nav_left} ${styles.icon}`}>
+      {/* <div className={styles.tomato}>🍅</div> */}
+      <div className={styles.icon_txt}>Sig<span className={styles.seek}>n</span>al ⚡️</div>
+    </div>
     <ul className={`${styles.nav_middle} ${styles.nav_items}`}>
       {isLogin && <li className={`${styles.nav_item}`}>
         <BtnTrig selected={openedCollection} onClick={switchCollection} colorType="coal">收藏集</BtnTrig>
         <MediaPanel opened={openedCollection} close={switchCollection} title={"收藏集"} attachedRowPos="left" attachedColPos="bottom" childProps={{ openedCollection, switchCollection }} ChildComp={CollectionList} />
       </li>}
       <li className={`${styles.nav_item}`}>
-        <BtnPure colorType="dark">最新</BtnPure>
+        <BtnPure colorType="dark"><Link to="/">最新</Link></BtnPure>
       </li>
       <li className={`${styles.nav_item}`}>
-        <BtnPure colorType="dark">速写</BtnPure>
+        <BtnPure colorType="dark"><Link to="/drafts">速写</Link></BtnPure>
       </li>
     </ul>
     <ul className={`${styles.nav_right} ${styles.nav_menu}`}>
