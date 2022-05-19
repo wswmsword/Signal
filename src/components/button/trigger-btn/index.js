@@ -8,8 +8,10 @@ const BtnTrig = props => {
   const colorClass = (colorType === COLOR_COAL ? styles.coal : styles.silver) || '';
   return <button
     className={`${styles.trigger} ${selected ? styles.selected : ''} ${colorClass}`}
-    onClick={onClick}>
-    {props.children}
+    onClick={onClick}
+    style={{...props.style}}>
+    <span>{props.children}</span>
+    <span className={styles.arrow} />
   </button>;
 };
 

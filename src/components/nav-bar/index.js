@@ -2,13 +2,13 @@
 import styles from "./index.module.css";
 import pListStyles from "./panel-list.module.css";
 import BtnPure from "../btn-pure";
-import BtnTrig from "../btn-trigger";
-import BtnDots from "../btn-dots";
 import CollectionList from "./collection-list";
 import { useState } from "react";
 import MediaPanel from "../media-panel";
 import useMobile from "../../hooks/useMobile";
-import { Link } from "react-router-dom";
+import PaddingLink from "../link/padding-link";
+import PaddingTriggerBtn from "../button/padding-trigger-btn";
+import PaddingDotsBtn from "../button/padding-dots-btn";
 
 /**
  * 顶部导航栏组件
@@ -43,42 +43,38 @@ const NavBar = props => {
     setOpenedMoreMobile(v => !v);
   };
 
-  return <nav className={styles.nav_bar_wrapper}>
+  return <header className={`${styles.nav_bar_wrapper} ${isMobile ? styles.mobile : ''}`}>
     <div className={`${styles.nav_left} ${styles.icon}`}>
       {/* <div className={styles.tomato}>🍅</div> */}
-      <div className={styles.icon_txt}>Sig<span className={styles.seek}>n</span>al ⚡️</div>
+      <div className={styles.icon_txt}>Sig<span className={styles.seek}>n</span>al⚡️</div>
     </div>
-    <ul className={`${styles.nav_middle} ${styles.nav_items}`}>
-      {isLogin && <li className={`${styles.nav_item}`}>
-        <BtnTrig selected={openedCollection} onClick={switchCollection} colorType="coal">收藏集</BtnTrig>
+    <nav className={styles.nav_middle}>
+      {isLogin && <>
+        <PaddingTriggerBtn selected={openedCollection} onClick={switchCollection} colorType="coal" rowPadding="7">收藏集</PaddingTriggerBtn>
         <MediaPanel opened={openedCollection} close={switchCollection} title={"收藏集"} attachedRowPos="left" attachedColPos="bottom" childProps={{ openedCollection, switchCollection }} ChildComp={CollectionList} />
-      </li>}
-      <li className={`${styles.nav_item}`}>
-        <BtnPure colorType="dark"><Link to="/">最新</Link></BtnPure>
-      </li>
-      <li className={`${styles.nav_item}`}>
-        <BtnPure colorType="dark"><Link to="/drafts">速写</Link></BtnPure>
-      </li>
-    </ul>
+      </>}
+      <PaddingLink to="/" theme="dark" rowPadding="7">最新</PaddingLink>
+      <PaddingLink to="/drafts" theme="dark" rowPadding="7">速写</PaddingLink>
+    </nav>
     <ul className={`${styles.nav_right} ${styles.nav_menu}`}>
       {! isMobile && <>
         {isLogin && <li className={styles.menu_item}>
-          <BtnTrig selected={openedNewFunc} onClick={switchNewFunc}>创建</BtnTrig>
+          <PaddingTriggerBtn selected={openedNewFunc} onClick={switchNewFunc} rowPadding="7">创建</PaddingTriggerBtn>
           <MediaPanel opened={openedNewFunc} close={switchNewFunc} title={"创建"} childProps={{ openedNewFunc }} ChildComp={NewFuncsList} />
         </li>}
         <li className={`${styles.btn_more_wrapper} ${styles.menu_item}`}>
-          <BtnDots selected={openedMore} onClick={switchMore} />
+          <PaddingDotsBtn selected={openedMore} onClick={switchMore} rowPadding="7" />
           <MediaPanel opened={openedMore} close={switchMore} title={"更多"} childProps={{ openedMore }} ChildComp={MoreList} />
         </li>
       </>}
       { isMobile && <>
         <li className={`${styles.btn_more_wrapper} ${styles.menu_item}`}>
-          <BtnDots selected={openedMoreMobile} onClick={switchMoreMobile} />
+          <PaddingDotsBtn selected={openedMoreMobile} onClick={switchMoreMobile} rowPadding="7" />
           <MediaPanel opened={openedMoreMobile} close={switchMoreMobile} title={"更多"} childProps={{ openedMoreMobile }} ChildComp={MoreListMobile} />
         </li>
       </>}
     </ul>
-  </nav>;
+  </header>;
 };
 
 /**

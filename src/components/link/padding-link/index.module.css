@@ -1,0 +1,28 @@
+.normal {
+  color: #aaa;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+  text-decoration: none;
+  transition: border .3s, color .3s;
+}
+.normal:hover {
+  color: #333;
+  transition: border .05s, color .05s;
+}
+.active {
+  color: #333;
+}
+
+.dark {
+  color: rgb(69, 69, 69);
+}
+
+.dark:hover {
+  color: #222;
+}
+
+.active.dark {
+  color: #222;
+}

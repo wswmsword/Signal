@@ -1,15 +1,26 @@
 .btn_more {
   width: 28px;
   height: 28px;
+  border: 0px;
+  background-color: transparent;
+  cursor: pointer;
+  box-sizing: content-box;
+}
+.dots_menu_wrapper {
+  width: 28px;
+  height: 28px;
   display: flex;
   justify-content: center;
   align-items: center;
   border: 0px;
   background-color: transparent;
-  cursor: pointer;
   border-radius: 50%;
 }
-.btn_more.selected {
+
+.dots_menu_wrapper {
+  flex-shrink: 0;
+}
+.btn_more.selected .dots_menu_wrapper {
   background-color: rgb(232, 232, 232);
 }
 .dots_menu {
@@ -19,9 +30,11 @@
   border: 1px solid #aaa;
   box-sizing: border-box;
   position: relative;
+  transition: border .3s;
 }
 .btn_more:hover .dots_menu {
   border: 1px solid #333;
+  transition: border .05s;
 }
 .btn_more.selected .dots_menu {
   border: 0;
@@ -39,9 +52,11 @@
   box-sizing: border-box;
   left: -9px;
   top: -1px;
+  transition: border .3s;
 }
 .btn_more:hover .dots_menu::before, .btn_more:hover .dots_menu::after {
   border: 1px solid #333;
+  transition: border .05s;
 }
 .btn_more.selected .dots_menu::before, .btn_more.selected .dots_menu::after {
   border: 0;

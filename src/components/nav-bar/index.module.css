@@ -41,24 +41,15 @@
   flex-shrink: 1;
   flex-grow: 1;
   margin-left: 18px;
+  height: 100%;
+  align-items: center;
+  display: flex;
+  position: relative;
 }
 .nav_right {
   flex-shrink: 0;
   flex-grow: 0;
-}
-
-.nav_items {
-  display: flex;
-}
-
-.nav_item {
-  color: #aaa;
-  font-size: 15px;
-  position: relative;
-}
-
-.nav_item + .nav_item {
-  margin-left: 10px;
+  height: 100%;
 }
 
 .nav_menu {
@@ -70,14 +61,15 @@
   font-size: 15px;
   color: #aaa;
   position: relative;
-}
-
-.menu_item + .menu_item {
-  margin-left: 10px;
+  height: 100%;
 }
 
 .btn_more_wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.mobile .nav_middle {
+  margin-left: 5px;
 }
