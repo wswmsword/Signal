@@ -5,6 +5,7 @@ import DraftsDrawer from "./components/drafts-drawer";
 import {useState} from 'react';
 import Drafts from "./components/pages/drafts";
 import Latest from "./components/pages/latest";
+import Rooms from "./components/pages/rooms";
 import { Routes, Route } from "react-router-dom";
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
         </a>
       </header> */}
       <Routes>
+        <Route path="/rooms" element={<Rooms />} />
         <Route path="/" element={<Latest />} />
         <Route path="/drafts" element={<Drafts />} />
       </Routes>
