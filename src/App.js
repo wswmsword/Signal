@@ -7,6 +7,7 @@ import Drafts from "./components/pages/drafts";
 import Latest from "./components/pages/latest";
 import Rooms from "./components/pages/rooms";
 import { Routes, Route } from "react-router-dom";
+import preval from "preval.macro";
 
 function App() {
   const [show, toggle] = useState(false);
@@ -34,6 +35,9 @@ function App() {
         <Route path="/drafts" element={<Drafts />} />
       </Routes>
       <DraftsDrawer />
+      <p>
+        最后 build 时间: {preval`module.exports = new Date().toLocaleString();`}.
+      </p>
     </div>
   );
 }
