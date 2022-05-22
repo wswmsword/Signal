@@ -37,6 +37,14 @@ button {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.ellipsis-5 {
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .groove_shadow {
   border: 1px solid rgb(193, 193, 193);
   background-color: rgb(255, 255, 255);

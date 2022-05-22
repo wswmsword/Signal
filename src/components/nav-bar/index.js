@@ -53,9 +53,9 @@ const NavBar = props => {
         <PaddingTriggerBtn selected={openedCollection} onClick={switchCollection} colorType="coal" rowPadding="7">收藏集</PaddingTriggerBtn>
         <MediaPanel opened={openedCollection} close={switchCollection} title={"收藏集"} attachedRowPos="left" attachedColPos="bottom" childProps={{ openedCollection, switchCollection }} ChildComp={CollectionList} />
       </>}
-      <PaddingLink to="/rooms" theme="dark" rowPadding="7">房间</PaddingLink>
-      <PaddingLink to="/" theme="dark" rowPadding="7">最新</PaddingLink>
-      <PaddingLink to="/drafts" theme="dark" rowPadding="7">速写</PaddingLink>
+      <PaddingLink to="rooms" theme="dark" rowPadding="7">房间</PaddingLink>
+      <PaddingLink to="" theme="dark" rowPadding="7">最新</PaddingLink>
+      <PaddingLink to="drafts" theme="dark" rowPadding="7">速写</PaddingLink>
     </nav>
     <ul className={`${styles.nav_right} ${styles.nav_menu}`}>
       {! isMobile && <>

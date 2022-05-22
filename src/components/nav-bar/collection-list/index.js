@@ -1,28 +1,14 @@
 import styles from "./index.module.css";
-import BtnPure from "../../btn-pure";
+
 import BtnBorder from "../../btn-border";
-import MemoPropsWrapper from "../../memo-props-wrapper";
 import PopoverPanel from "../../popover-panel";
 import InputShadow from "../../input-shadow";
 import React, { useState } from "react";
+import FullLink from "../../link/full-link";
+import collections_fk from "../../../../src/fakes/collections";
 
 export default function CollectionList({ inPortal, switchCollection }) {
-  const [collectionList] = useState([{
-    id: 1,
-    title: '想去的地方',
-  }, {
-    id: 2,
-    title: '中文歌',
-  }, {
-    id: 3,
-    title: '绘画技巧',
-  }, {
-    id: 4,
-    title: '算法',
-  }, {
-    id: 5,
-    title: '开发',
-  }])
+  const [collectionList] = useState(collections_fk);
   // 新建收藏集弹窗
   const [openedNewFunc, setOpenedNewFunc] = useState(false);
 
@@ -34,28 +20,11 @@ export default function CollectionList({ inPortal, switchCollection }) {
     console.log("新建收藏集");
   };
 
-  const pureBtnStyles = {
-    width: "100%",
-    height: "33px",
-    textAlign: "left",
-  };
-  const pureBtnStylesMobile = {
-    padding: "0 15px",
-    width: "100%",
-    height: "33px",
-    textAlign: "left",
-  }
-  const btnProps = inPortal ? {
-    customStyles: pureBtnStylesMobile,
-  } : {
-    customStyles: pureBtnStyles,
-  }
-  const BtnMemoizedStyles = MemoPropsWrapper({ WrappedComp: BtnPure, wrappedProps: btnProps });
   return <>
     <ul className={`${inPortal ? styles.mobile : ''} ${styles.list_wrapper}`}>
       {collectionList.map(collection => <React.Fragment key={collection.id}>
         <li className={styles.list_item}>
-          <BtnMemoizedStyles>{collection.title}</BtnMemoizedStyles>
+          <FullLink to={"collections/" + collection.id} theme="lignt">{collection.title}</FullLink>
         </li>
       </React.Fragment>)}
     </ul>
