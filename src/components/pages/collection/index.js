@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import getCollectionInfoById from "../../../fakes/collection-infos";
 import styles from "./index.module.css";
 import { random } from "../../../tools/number";
+import ExpandableText from "../../expandable-text";
 
 /**收藏集 */
 const Collection = () => {
@@ -40,7 +41,7 @@ const Collection = () => {
           </div>
           <div className={styles.title_desc}>
             <h1 className={`${styles.title} ellipsis-1`}>{info.title}</h1>
-            <div className={`${styles.desc} ellipsis-5`}>{info.desc}</div>
+            <ExpandableText lineClamp={5}>{info.desc}</ExpandableText>
           </div>
         </div>
         <div className={styles.profile_right}>

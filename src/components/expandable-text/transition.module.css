@@ -1,0 +1,19 @@
+.long_txt_enter {
+  opacity: 0;
+  transform: translateY(-6px);
+}
+.long_txt_enter_active {
+  opacity: 1;
+  transform: translateY(0px);
+  transition: opacity .2s, transform .2s;
+}
+.long_txt_exit {
+  opacity: 1;
+  transform: translateY(0px);
+}
+.long_txt_exit_active {
+  opacity: 0;
+  /* transform: translateY(-7px); */
+  transition: opacity .2s;
+  transition: opacity .2s, transform .2s;
+}

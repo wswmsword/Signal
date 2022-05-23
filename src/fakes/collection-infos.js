@@ -30,7 +30,7 @@ const collectionInfos = [{
   id: 2,
   title: "中文歌",
   titleImg: imgPGorege,
-  desc: 'My favourite Chinese songs. 私の大好きな中国語の歌。我最爱的中文歌～',
+  desc: 'My favourite Chinese songs. ',
   state: 1,
   first: {
     id: 1,

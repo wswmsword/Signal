@@ -1,0 +1,21 @@
+.txt {
+  font-size: 15px;
+  text-align: left;
+  color: #333;
+  cursor: pointer;
+}
+
+.expanded_txt {
+  position: absolute;
+  border: 1px solid black;
+  background-color: white;
+  border-radius: 5px;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.shown {
+  visibility: visible;
+}
