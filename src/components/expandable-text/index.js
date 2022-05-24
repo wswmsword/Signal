@@ -25,7 +25,7 @@ const ExpandableText = props => {
     setTop(offsetTop - padding - 1);
     setLeft(offsetLeft - padding - 1);
     setHeight(scrollHeight);
-    setWidth(offsetWidth);
+    setWidth(offsetWidth + 2);
     setCollapsed(false);
   };
   const collapseTxt = () => {
@@ -84,7 +84,7 @@ const ExpandableText = props => {
             left: `${left}px`,
             top: `${top}px`,
             width: `${width}px`,
-            height: `${height}px`,
+            // height: `${height}px`,
           }}>
           {props.children}
         </div>
