@@ -12,7 +12,7 @@
 
 .profile_left {
   display: flex;
-  flex-grow: 0;
+  flex-grow: 1;
   flex-shrink: 1;
   min-width: 0;
   gap: 12px;
@@ -38,9 +38,15 @@
   flex-direction: column;
   justify-content: flex-end;
   color: #666;
-  flex-grow: 0;
+  flex-grow: 1;
   flex-shrink: 1;
   min-width: 0;
+}
+
+.title_wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .title {

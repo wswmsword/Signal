@@ -96,7 +96,7 @@ const collectionInfos = [{
   id: 5,
   title: "开发",
   titleImg: imgPJiaozi,
-  desc: "开发和设计一样，“再来一遍，重复又一遍，跌倒爬起，年复一年，反复演练，推倒重建，闪✨闪✨发光。”。",
+  desc: "开发和设计一样，“🎶再来一遍，重复又一遍，跌倒爬起，年复一年，反复演练，推倒重建，闪✨闪✨发光。🎶”。",
   state: 1,
   first: {
     id: 1,

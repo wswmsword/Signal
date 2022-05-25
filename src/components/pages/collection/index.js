@@ -4,14 +4,16 @@ import getCollectionInfoById from "../../../fakes/collection-infos";
 import styles from "./index.module.css";
 import { random } from "../../../tools/number";
 import ExpandableText from "../../expandable-text";
+import BtnBorder from "../../btn-border";
+import PopoverEditor from "./popover-editor";
 
 /**收藏集 */
 const Collection = () => {
   let { id } = useParams();
   const [ info, setInfo ] = useState({});
-  // 是否获取到数据
-  const [ requesting, setRequesting ] = useState(false);
+  const [ requesting, setRequesting ] = useState(false); // 是否获取到数据
   const [ fakeBarWidths, setFakeBarWidths ] = useState([]);
+  const [ openedEditor, setOpenedEditor ] = useState(false);
   useEffect(() => {
     getInfo();
     async function getInfo() {
@@ -28,6 +30,14 @@ const Collection = () => {
     setFakeBarWidths([...Array(5)].map(_ => random(15, 92)));
   };
 
+  const openEditorLayer = () => {
+    setOpenedEditor(true);
+  };
+
+  const closeEditorLayer = () => {
+    setOpenedEditor(false);
+  };
+
   if (requesting) {
     return <div>Fetching the data, please wait ...</div>;
   }
@@ -40,7 +50,10 @@ const Collection = () => {
             <img className={styles.collection_img} src={info.titleImg} />
           </div>
           <div className={styles.title_desc}>
-            <h1 className={`${styles.title} ellipsis-1`}>{info.title}</h1>
+            <div className={styles.title_wrapper}>
+              <h1 className={`${styles.title} ellipsis-1`}>{info.title}</h1>
+              <BtnBorder size="" onClick={openEditorLayer} style={{ flexShrink: 0 }}>编辑</BtnBorder>
+            </div>
             <ExpandableText lineClamp={5}>{info.desc}</ExpandableText>
           </div>
         </div>
@@ -56,6 +69,7 @@ const Collection = () => {
 
       </div>
     </div>
+    <PopoverEditor opened={openedEditor} title={info.title} close={closeEditorLayer} intro={info.desc} />
   </>;
 }
 

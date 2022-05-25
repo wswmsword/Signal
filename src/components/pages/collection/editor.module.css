@@ -1,0 +1,25 @@
+.title_wrapper, .intro_wrapper, .funcs_wrapper {
+  margin-top: 9px;
+}
+
+.title_title, .intro_title {
+  color: #333;
+}
+
+.text_message {
+  width: 100%;
+  border-radius: 4px;
+  padding: 3px 5px;
+  line-height: 20px;
+  font-size: 15px;
+  height: 180px;
+  resize: none;
+  box-sizing: border-box;
+  color: #333;
+}
+
+.funcs_wrapper {
+  display: flex;
+  justify-content: flex-end;
+  gap: 9px;
+}
