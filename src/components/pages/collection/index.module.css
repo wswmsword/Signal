@@ -1,13 +1,15 @@
 .collection_wrapper {
-  padding: 36px 28px;
-  max-width: 1125px;
-  margin: 0 auto;
+
 }
 
 .profile {
   display: flex;
   gap: 12px;
   justify-content: space-between;
+  padding: 36px 28px;
+  padding-bottom: 0;
+  max-width: 1125px;
+  margin: 0 auto;
 }
 
 .profile_left {
@@ -75,6 +77,10 @@
   border-radius: 6px;
   background-color: rgb(207, 207, 207);
   transition: width .3s;
+}
+
+.content {
+  margin-top: 36px;
 }
 
 @media screen and (max-width: 960px) {

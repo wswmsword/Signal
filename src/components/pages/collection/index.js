@@ -6,6 +6,8 @@ import { random } from "../../../tools/number";
 import ExpandableText from "../../expandable-text";
 import BtnBorder from "../../btn-border";
 import PopoverEditor from "./popover-editor";
+import MediaPin from "../../media-pin-layout";
+import greyPinItem from "../../fakes/grey-pin-item";
 
 /**收藏集 */
 const Collection = () => {
@@ -38,6 +40,8 @@ const Collection = () => {
     setOpenedEditor(false);
   };
 
+  const ItemComps = [...Array(25)].map(() => greyPinItem());
+
   if (requesting) {
     return <div>Fetching the data, please wait ...</div>;
   }
@@ -66,7 +70,12 @@ const Collection = () => {
         </div>
       </div>
       <div className={styles.content}>
-
+        <MediaPin
+          mGap={18}
+          gap={36}
+          mItemW={180}
+          itemW={210}
+          ItemComps={ItemComps} />
       </div>
     </div>
     <PopoverEditor opened={openedEditor} title={info.title} close={closeEditorLayer} intro={info.desc} />

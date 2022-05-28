@@ -1,7 +1,6 @@
 .page_wrapper {
   min-height: calc(100vh - 56px);
   box-sizing: border-box;
-  height: 0px;
 }
 
 .content {
