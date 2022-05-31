@@ -13,7 +13,7 @@ const Latest = () => {
       <p>最新：最新最新最新最新最新最新最新最新最新最新最新最新最新最新最新发现。Get Back. Let It Go. Real Love.</p>
     </div>
     <MediaPin
-      mGap={18}
+      mGap={12}
       gap={36}
       mItemW={180}
       itemW={210}

@@ -1,7 +1,16 @@
 .wrapper {
   position: relative;
   margin: 0 auto;
+  overflow: hidden;
 }
 .pin_item_wrapper {
   /* transition: transform 1.2s; */
+}
+.item {
+  transition: top .3s, left .3s, transform .3s;
+  cursor: pointer;
+}
+
+.selected {
+  filter: contrast(0.5);
 }

@@ -71,7 +71,7 @@ const Collection = () => {
       </div>
       <div className={styles.content}>
         <MediaPin
-          mGap={18}
+          mGap={12}
           gap={36}
           mItemW={180}
           itemW={210}
