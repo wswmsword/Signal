@@ -7,7 +7,7 @@ import styles from "./index.module.css";
  * 设置宽度，子项目将均匀布局在宽度中；设置左右间隔，子项目将按间隔
  * 布局，宽度即子项目间隔后的宽度。
  */
-export default function PinLayout({ width, itemWidth, colNum, ItemComps, gapX, gapY, panelHeight = 521 }) {
+export default function PinLayout({ width, itemWidth, colNum, gapX, gapY, panelHeight = 521, ItemComp, itemsData = [], PlaceComp, placeData }) {
   // 容器宽度
   const [w, setW] = useState(0);
   // 容器高度
@@ -15,20 +15,22 @@ export default function PinLayout({ width, itemWidth, colNum, ItemComps, gapX, g
   // 项目横向间隔
   const [g, setG] = useState(0);
   // 子项目数目
-  const itemsLen = ItemComps.length;
+  const itemsLen = itemsData.length;
   // top, left, ItemComp，项目信息
   const [itemInfos, setItemInfos] = useState([...Array(itemsLen)].map((_, i) => ({
+    id: 0,
     top: 0, // 项目顶部与容器顶部的距离
     left: 0, // 项目的左边与容器左边的距离
-    ItemComp: ItemComps[i], // 项目组件
     height: 0, // 项目高度
     colId: 0, // 项目所在纵列
     offsetY: 0, // 项目偏移距离
+    data: itemsData[i],
   })));
   // 每一纵列由上至下的项目信息
   const [infosDividedByCols, setInfosDividedByCols] = useState([]);
   // 选中的项目 id
   const [selectedItem, setSelectedItem] = useState(null);
+  // const [placeholderTop, setPlaceholderTop] = useState(0);
 
   const wrapperRef = useRef(null);
 
@@ -41,7 +43,7 @@ export default function PinLayout({ width, itemWidth, colNum, ItemComps, gapX, g
 
   useEffect(() => {
     // 子项目数目
-    const itemsLen = ItemComps.length;
+    const itemsLen = itemsData.length;
     // 项目的高度
     const itemHs = Array.prototype.map.call(wrapperRef.current.childNodes, node => node.clientHeight);
     // 列的左边距离
@@ -85,76 +87,41 @@ export default function PinLayout({ width, itemWidth, colNum, ItemComps, gapX, g
       id: i,
       top: itemTs[i],
       left: itemLs[i],
-      ItemComp: ItemComps[i],
       height: itemHs[i],
       colId: itemCs[i],
       offsetY: 0,
+      data: itemsData[i],
     }));
     setItemInfos(itemInfos);
     // 每一纵列的项目信息
     const infosDividedByCols = itemInfos.reduce((acc, cur) => {
       const curCol = cur.colId;
-      acc[curCol] = acc[curCol].concat(cur)
+      acc[curCol] = acc[curCol].concat(cur);
       return acc;
     }, [...Array(colNum)].fill([]));
     setInfosDividedByCols(infosDividedByCols);
-  }, [wrapperRef, w, itemWidth, colNum, ItemComps, g, gapY]);
+  }, [wrapperRef, w, itemWidth, colNum, g, gapY, itemsData]);
 
-  /**选中并展开 */
-  const expand = (itemInfo) => {
-    // 如果点击已选中项目就复原
-    if (selectedItem === itemInfo.id) {
-      setItemInfos(itemInfos => {
-        return itemInfos.map(item => ({
-          ...item,
-          offsetY: 0
-        }));
-      });
-      setSelectedItem(null);
-      return ;
-    }
-
-    setSelectedItem(itemInfo.id);
-    const expandingOffset = calcOffset();
+  /**
+   * 指定 item 设置偏移
+   * @param {Array} itemsMapAry 
+   * 形如
+   * [[id1, offset1],
+   * [id2, offset2],
+   * [id3, offset3]]
+   */
+  const setItemOffsetYs = (itemsMapAry) => {
+    const offsetMap = new Map(itemsMapAry);
     setItemInfos(itemInfos => {
       return itemInfos.map(item => {
-        const col = item.colId;
-        const { positive, negative, separator } = expandingOffset[col]
+        const offsetY = offsetMap.get(item.id) == null ? item.offsetY : offsetMap.get(item.id);
         return {
           ...item,
-          offsetY: item.id > separator ? positive : -negative,
-          // top: item.id > separator ? item.top + positive : item.top - negative,
-        }
+          offsetY,
+        };
       });
     });
-
-    /**计算每一纵列因为展开而需要移动的偏移量 */
-    function calcOffset() {
-      const baseBottom = itemInfo.top + itemInfo.height
-      return infosDividedByCols.reduce((acc, colInfos) => {
-        const len = colInfos.length;
-        let separator = 0;
-        let negative = 0;
-        let positive = 0;
-        for (let i = 0; i < len; ++ i) {
-          const curInfo = colInfos[i];
-          const curBottom = curInfo.top + curInfo.height
-          if (curBottom >= baseBottom) {
-            separator = colInfos[i].id;
-            negative = curBottom - baseBottom;
-            positive = panelHeight - negative;
-            break;
-          }
-        }
-        acc = acc.concat({
-          separator, // 分隔点
-          negative, // 向上偏移距离
-          positive, // 向下偏移距离
-        });
-        return acc;
-      }, []);
-    }
-  };
+  }
   return (<>
     <div
       ref={wrapperRef}
@@ -172,11 +139,31 @@ export default function PinLayout({ width, itemWidth, colNum, ItemComps, gapX, g
             left: `${item.left}px`,
             top: `${item.top}px`,
             width: `${itemWidth}px`,
-          }}
-          onClick={() => expand(item)}>
-          {item.ItemComp}
+          }}>
+          <ItemComp
+            {...item.data}
+            info={item}
+            colId={item.colId}
+            selected={selectedItem === item.id}
+            selectedItem={selectedItem}
+            setItemOffsetYs={setItemOffsetYs}
+            itemsDividedByCols={infosDividedByCols}
+            itemInfos={itemInfos}
+            deselect={() => setSelectedItem(null)}
+            select={id => setSelectedItem(id)}
+            placeH={panelHeight}
+            gapY={gapY}
+            gapX={gapX} />
         </div>
       </Fragment>)}
+      {/* <PlaceComp {...placeData} /> */}
+      {/* {selectedItem && <div
+        style={{
+          height: panelHeight + 'px',
+          top: placeholderTop + 'px',
+        }}
+        className={styles.placeholder}>
+      </div>} */}
     </div>
   </>)
 };

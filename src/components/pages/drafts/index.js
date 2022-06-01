@@ -1,11 +1,15 @@
 import styles from "./index.module.css";
 import useMobile from "../../../hooks/useMobile";
 import MediaPin from "../../media-pin-layout";
-import greyPinItem from "../../fakes/grey-pin-item";
+import GreyPinItem from "../../fakes/grey-pin-item";
+import { random } from "../../../tools/number";
+import withExpandableLayerForPin from "../../hoc/with-expandable-layer-for-pin";
 /**速写 */
 const Drafts = () => {
   const isMobile = useMobile();
-  const ItemComps = [...Array(25)].map(() => greyPinItem());
+  const itemsData = [...Array(25)].map((_, i) => ({ h: random(69, 361) }));
+
+  const GreyPinItemWithExpandableLayerForPin = withExpandableLayerForPin(GreyPinItem);
 
   return <div className={styles.page_wrapper}>
     <div className={`${styles.content} ${isMobile ? styles.mobile : ''}`}>
@@ -17,7 +21,8 @@ const Drafts = () => {
       gap={36}
       mItemW={180}
       itemW={210}
-      ItemComps={ItemComps} />
+      itemsData={itemsData}
+      ItemComp={GreyPinItemWithExpandableLayerForPin} />
   </div>
 };
 

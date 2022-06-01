@@ -7,7 +7,8 @@ import ExpandableText from "../../expandable-text";
 import BtnBorder from "../../btn-border";
 import PopoverEditor from "./popover-editor";
 import MediaPin from "../../media-pin-layout";
-import greyPinItem from "../../fakes/grey-pin-item";
+import GreyPinItem from "../../fakes/grey-pin-item";
+import withExpandableLayerForPin from "../../hoc/with-expandable-layer-for-pin";
 
 /**收藏集 */
 const Collection = () => {
@@ -40,7 +41,9 @@ const Collection = () => {
     setOpenedEditor(false);
   };
 
-  const ItemComps = [...Array(25)].map(() => greyPinItem());
+  const itemsData = [...Array(25)].map((_, i) => ({ h: random(69, 361) }));
+
+  const GreyPinItemWithExpandableLayerForPin = withExpandableLayerForPin(GreyPinItem);
 
   if (requesting) {
     return <div>Fetching the data, please wait ...</div>;
@@ -51,7 +54,7 @@ const Collection = () => {
       <div className={styles.profile}>
         <div className={styles.profile_left}>
           <div className={styles.collection_img_wrapper}>
-            <img className={styles.collection_img} src={info.titleImg} />
+            <img className={styles.collection_img} src={info.titleImg} alt={info.title} />
           </div>
           <div className={styles.title_desc}>
             <div className={styles.title_wrapper}>
@@ -75,7 +78,8 @@ const Collection = () => {
           gap={36}
           mItemW={180}
           itemW={210}
-          ItemComps={ItemComps} />
+          itemsData={itemsData}
+          ItemComp={GreyPinItemWithExpandableLayerForPin} />
       </div>
     </div>
     <PopoverEditor opened={openedEditor} title={info.title} close={closeEditorLayer} intro={info.desc} />
