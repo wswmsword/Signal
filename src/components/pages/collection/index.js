@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import getCollectionInfoById from "../../../fakes/collection-infos";
 import styles from "./index.module.css";
@@ -9,13 +9,13 @@ import PopoverEditor from "./popover-editor";
 import MediaPin from "../../media-pin-layout";
 import GreyPinItem from "../../fakes/grey-pin-item";
 import withExpandableLayerForPin from "../../hoc/with-expandable-layer-for-pin";
+import FakeBar from "./fake-bar";
 
 /**收藏集 */
 const Collection = () => {
   let { id } = useParams();
   const [ info, setInfo ] = useState({});
   const [ requesting, setRequesting ] = useState(false); // 是否获取到数据
-  const [ fakeBarWidths, setFakeBarWidths ] = useState([]);
   const [ openedEditor, setOpenedEditor ] = useState(false);
   useEffect(() => {
     getInfo();
@@ -23,15 +23,10 @@ const Collection = () => {
       setRequesting(true);
       const res = await getCollectionInfoById(id);
       setInfo(res);
-      setFakeBarWidths([...Array(5)].map(_ => random(15, 92)));
       setRequesting(false);
     }
     return () => {}
   }, [id]);
-
-  const randomBarSize = () => {
-    setFakeBarWidths([...Array(5)].map(_ => random(15, 92)));
-  };
 
   const openEditorLayer = () => {
     setOpenedEditor(true);
@@ -41,9 +36,8 @@ const Collection = () => {
     setOpenedEditor(false);
   };
 
-  const itemsData = [...Array(25)].map((_, i) => ({ h: random(69, 361) }));
-
-  const GreyPinItemWithExpandableLayerForPin = withExpandableLayerForPin(GreyPinItem);
+  const itemsData = useMemo(() => [...Array(25)].map((_, i) => ({ h: random(69, 361) })), []);
+  const GreyPinItemWithExpandableLayerForPin = useMemo(() => withExpandableLayerForPin(GreyPinItem), []);
 
   if (requesting) {
     return <div>Fetching the data, please wait ...</div>;
@@ -65,11 +59,7 @@ const Collection = () => {
           </div>
         </div>
         <div className={styles.profile_right}>
-          <div className={styles.grey_block} onClick={randomBarSize}>
-            {fakeBarWidths.map((n, i) => <Fragment key={i}>
-              <div className={styles.grey_bar} style={{ width: n + '%' }}></div>
-            </Fragment>)}
-          </div>
+          <FakeBar />
         </div>
       </div>
       <div className={styles.content}>

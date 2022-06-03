@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, memo } from "react";
 import PinLayout from "../pin-layout";
 import withAutoColumn from "../hoc/with-auto-column";
 import useMobile from "../../hooks/useMobile";
@@ -26,4 +26,4 @@ const MediaPin = ({ mGap, gap, mItemW, itemW, ...rest }) => {
   </>;
 };
 
-export default MediaPin;
+export default memo(MediaPin);

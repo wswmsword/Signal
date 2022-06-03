@@ -1,4 +1,4 @@
-import { useEffect, useState, memo } from "react";
+import { useEffect, useState } from "react";
 import useWindowSize from "../../../hooks/useWindowSize";
 
 /**根据屏幕宽度、每个项目的左右间隔、项目宽度，计算一行能放的项目数量 */
