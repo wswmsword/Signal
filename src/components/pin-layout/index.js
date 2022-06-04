@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, Fragment } from "react";
+import { Outlet } from "react-router-dom";
 import styles from "./index.module.css";
 
 /**
@@ -7,11 +8,13 @@ import styles from "./index.module.css";
  * 设置宽度，子项目将均匀布局在宽度中；设置左右间隔，子项目将按间隔
  * 布局，宽度即子项目间隔后的宽度。
  */
-export default function PinLayout({ width, itemWidth, colNum, gapX, gapY, panelHeight = 521, ItemComp, itemsData = [], PlaceComp, placeData }) {
+export default function PinLayout({ width, itemWidth, colNum, gapX, gapY, placeHeight = 521, ItemComp, itemsData = [], disabledPlace }) {
   // 容器宽度
   const [w, setW] = useState(0);
   // 容器高度
   const [h, setH] = useState(0);
+  // 容器的初始高度
+  const [h2, setH2] = useState(0);
   // 项目横向间隔
   const [g, setG] = useState(0);
   // 子项目数目
@@ -31,6 +34,9 @@ export default function PinLayout({ width, itemWidth, colNum, gapX, gapY, panelH
   // 选中的项目 id
   const [selectedItem, setSelectedItem] = useState(null);
   // const [placeholderTop, setPlaceholderTop] = useState(0);
+  // 详情区域距离顶部的距离
+  const [placeT, setPlaceTop] = useState(0);
+  const [placeData, setPlaceData] = useState({ init: "bird" });
 
   const wrapperRef = useRef(null);
 
@@ -64,7 +70,7 @@ export default function PinLayout({ width, itemWidth, colNum, gapX, gapY, panelH
     // 第一横排的容器高度、项目左边距离、项目顶部距离；纵列最下面项目的 id
     for (let i = 0; i < colNum; ++ i) {
       wrapperH = Math.max(wrapperH, itemHs[i]);
-      itemLs.push(colLs[i])
+      itemLs.push(colLs[i]);
       itemTs.push(0);
       itemCs.push(i);
       colBottomIds.push(i);
@@ -82,6 +88,7 @@ export default function PinLayout({ width, itemWidth, colNum, gapX, gapY, panelH
     }
     
     setH(wrapperH);
+    setH2(wrapperH);
     // 生成项目信息
     const itemInfos = [...Array(itemsLen)].map((_, i) => ({
       id: i,
@@ -121,7 +128,7 @@ export default function PinLayout({ width, itemWidth, colNum, gapX, gapY, panelH
         };
       });
     });
-  }
+  };
   return (<>
     <div
       ref={wrapperRef}
@@ -142,30 +149,37 @@ export default function PinLayout({ width, itemWidth, colNum, gapX, gapY, panelH
           }}>
           <ItemComp
             {...item.data}
-            info={item}
-            colId={item.colId}
-            selected={selectedItem === item.id}
-            selectedItem={selectedItem}
-            setItemOffsetYs={setItemOffsetYs}
-            itemsDividedByCols={infosDividedByCols}
-            itemInfos={itemInfos}
-            deselect={() => setSelectedItem(null)}
-            select={id => setSelectedItem(id)}
-            placeH={panelHeight}
-            gapY={gapY}
-            gapX={gapX} />
+            info={item} // 项目数据
+            colId={item.colId} // 项目所处的纵列
+            selected={selectedItem === item.id} // 项目是否被选中
+            selectedItem={selectedItem} // 被选中的项目 id
+            setItemOffsetYs={setItemOffsetYs} // 设置项目的纵向偏移
+            itemsDividedByCols={infosDividedByCols} // 按纵列分的项目数据
+            itemInfos={itemInfos} // 所有项目数据
+            deselect={() => setSelectedItem(null)} // 取消选中函数
+            select={id => setSelectedItem(id)} // 选中函数
+            placeH={placeHeight} // 详情区域的高度
+            gapY={gapY} // 纵向的项目间的间隔
+            gapX={gapX} // 横向的项目间的间隔
+            setPlaceTop={setPlaceTop} // 设置详情区域距离顶端的距离
+            setPlaceData={setPlaceData} // 设置详情区域的数据
+            originH={h2} // 原始容器的高度
+            setH={setH} // 设置容器的高度
+          />
         </div>
       </Fragment>)}
-      {/* <PlaceComp {...placeData} /> */}
-      {/* {selectedItem && <div
-        style={{
-          height: panelHeight + 'px',
-          top: placeholderTop + 'px',
-        }}
-        className={styles.placeholder}>
-      </div>} */}
+      {! disabledPlace && selectedItem != null && <>
+        <div
+          className={styles.placeholder}
+          style={{
+            top: `${placeT}px`,
+            height: `${placeHeight}px`,
+          }}>
+          <Outlet context={[placeData]} />
+        </div>
+      </>}
     </div>
-  </>)
+  </>);
 };
 
 

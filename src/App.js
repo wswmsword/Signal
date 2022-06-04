@@ -2,27 +2,38 @@
 import "./App.css";
 import NavBar from "./components/nav-bar";
 import DraftsDrawer from "./components/drafts-drawer";
-import {useState} from 'react';
 import Collection from "./components/pages/collection";
 import Drafts from "./components/pages/drafts";
 import Latest from "./components/pages/latest";
 import Rooms from "./components/pages/rooms";
 import { Routes, Route } from "react-router-dom";
 import preval from "preval.macro";
+import GreyPinPlace from "./components/fakes/grey-pin-place";
 
 function App() {
-  const [show, toggle] = useState(false);
 
   return (
     <div className="App">
       <NavBar />
       <Routes>
         <Route path="collections">
-          <Route path=":id" element={<Collection />} />
+          <Route path=":id" element={<Collection />}>
+            <Route path="msgs">
+              <Route path=":signalId" element={<GreyPinPlace />} />
+            </Route>
+          </Route>
         </Route>
         <Route path="rooms" element={<Rooms />} />
-        <Route path="" element={<Latest />} />
-        <Route path="drafts" element={<Drafts />} />
+        <Route path="" element={<Latest />}>
+          <Route path="msgs">
+            <Route path=":signalId" element={<GreyPinPlace />} />
+          </Route>
+        </Route>
+        <Route path="drafts" element={<Drafts />}>
+          <Route path="msgs">
+            <Route path=":signalId" element={<GreyPinPlace />} />
+          </Route>
+        </Route>
       </Routes>
       <DraftsDrawer />
       <p>

@@ -1,8 +1,8 @@
-import { Fragment, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import getCollectionInfoById from "../../../fakes/collection-infos";
 import styles from "./index.module.css";
-import { random } from "../../../tools/number";
+import { random, genIdChars } from "../../../tools/number";
 import ExpandableText from "../../expandable-text";
 import BtnBorder from "../../btn-border";
 import PopoverEditor from "./popover-editor";
@@ -36,7 +36,7 @@ const Collection = () => {
     setOpenedEditor(false);
   };
 
-  const itemsData = useMemo(() => [...Array(25)].map((_, i) => ({ h: random(69, 361) })), []);
+  const itemsData = useMemo(() => [...Array(25)].map((_, i) => ({ id: genIdChars(), h: random(69, 361) })), []);
   const GreyPinItemWithExpandableLayerForPin = useMemo(() => withExpandableLayerForPin(GreyPinItem), []);
 
   if (requesting) {
@@ -69,7 +69,9 @@ const Collection = () => {
           mItemW={180}
           itemW={210}
           itemsData={itemsData}
-          ItemComp={GreyPinItemWithExpandableLayerForPin} />
+          ItemComp={GreyPinItemWithExpandableLayerForPin}
+          disabledPlace={false}
+          placeHeight={521} />
       </div>
     </div>
     <PopoverEditor opened={openedEditor} title={info.title} close={closeEditorLayer} intro={info.desc} />

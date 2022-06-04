@@ -1,4 +1,14 @@
 .grey_box {
+  /* yellow rgb(248 248 233) */
+  /* purple rgb(240 239 243) */
+  /* green  rgb(239 247 240) */
   background-color: rgb(240, 240, 240);
   border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  box-sizing: border-box;
+}
+
+.selected {
+  background-color: rgb(240 239 243);
+  border: 7px dashed #d4d0f1;
 }

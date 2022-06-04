@@ -1,8 +1,10 @@
+import { NavLink, useNavigate } from "react-router-dom";
 
 export default function withExpandableLayerForPin(WrappedComponent) {
   return function WithAutoColumn(props) {
-    const { setItemOffsetYs, itemsDividedByCols, selected, itemInfos, deselect, select, info, placeH, gapY, ...rest } = props;
-
+    const { setItemOffsetYs, itemsDividedByCols, selected, itemInfos, deselect, select, info, placeH, gapY, setPlaceTop, setPlaceData, setH, originH, ...rest } = props;
+    const navigate = useNavigate();
+    
     /**选中并展开 */
     const selectAndExpand = () => {
       // 如果点击已选中项目就复原
@@ -10,20 +12,24 @@ export default function withExpandableLayerForPin(WrappedComponent) {
       if (selected) {
         setItemOffsetYs(itemIds.map(id => [id, 0]));
         deselect();
-        // setH(h - panelHeight - gapY);
+        setH(h => originH);
+        navigate("./", { replace: true });
         return ;
       }
-      select(info.id)
+      // 选中
+      select(info.id);
+      // 计算因为展开详情区域项目需要移动的偏移量
       const expandingOffset = calcOffset();
       const offsetYs = itemInfos.map(info => {
         const col = info.colId;
-        const { positive, negative, separator } = expandingOffset[col]
+        const { positive, negative, separator } = expandingOffset[col];
         return [info.id, info.id > separator ? positive : -negative];
       })
-      setItemOffsetYs(offsetYs)
-
-      // setPlaceholderTop(itemInfo.top + itemInfo.height + gapY);
-      // setH(h + panelHeight + gapY);
+      setItemOffsetYs(offsetYs);
+      // 设置详情区域距离顶部的距离
+      setPlaceTop(info.top + info.height + gapY);
+      // 设置展开后的容器高度
+      setH(h => originH +  placeH + gapY);
 
       /**计算每一纵列因为展开而需要移动的偏移量 */
       function calcOffset() {
@@ -53,9 +59,12 @@ export default function withExpandableLayerForPin(WrappedComponent) {
       }
     };
 
-    return <div onClick={selectAndExpand}>
-      <WrappedComponent
-        {...rest} />
-    </div>
-  }
+    return<>
+      <NavLink to={"msgs/" + info.data.id} replace={true} onClick={selectAndExpand}>
+        <WrappedComponent
+          selected={selected}
+          {...rest} />
+      </NavLink>
+    </>;
+  };
 }

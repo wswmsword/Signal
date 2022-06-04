@@ -2,13 +2,14 @@ import styles from "./index.module.css";
 import useMobile from "../../../hooks/useMobile";
 import MediaPin from "../../media-pin-layout";
 import GreyPinItem from "../../fakes/grey-pin-item";
-import { random } from "../../../tools/number";
+import { random, genIdChars } from "../../../tools/number";
 import withExpandableLayerForPin from "../../hoc/with-expandable-layer-for-pin";
+import { useMemo } from "react";
 /**最新 */
 const Latest = () => {
   const isMobile = useMobile();
-  const itemsData = [...Array(25)].map((_, i) => ({ h: random(69, 361) }));
-
+  
+  const itemsData = useMemo(() => [...Array(25)].map((_, i) => ({ id: genIdChars(), h: random(69, 361) })), []);
   const GreyPinItemWithExpandableLayerForPin = withExpandableLayerForPin(GreyPinItem);
 
   return <div className={styles.page_wrapper}>
@@ -22,7 +23,9 @@ const Latest = () => {
       mItemW={180}
       itemW={210}
       itemsData={itemsData}
-      ItemComp={GreyPinItemWithExpandableLayerForPin} />
+      ItemComp={GreyPinItemWithExpandableLayerForPin}
+      disabledPlace={false}
+      placeHeight={521} />
   </div>
 };
 
