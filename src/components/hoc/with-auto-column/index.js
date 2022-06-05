@@ -17,12 +17,12 @@ export default function withAutoColumn(WrappedComponent, { gap, itemW }) {
       return <WrappedComponent
         {...props}
         colNum={colNum}
-      />
+      />;
     } else {
-      return <>Now Loading...</>
+      return <>Now Loading...</>;
     }
-  }
-}
+  };
+};
 
 function calColsNum(accWidth, itemWidth, gap, windowW) {
   if (accWidth > windowW) { return 0; }

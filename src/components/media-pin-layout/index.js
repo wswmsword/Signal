@@ -26,4 +26,8 @@ const MediaPin = ({ mGap, gap, mItemW, itemW, ...rest }) => {
   </>;
 };
 
-export default memo(MediaPin);
+export default MediaPin;
+
+const MemoizedMediaPin = memo(MediaPin);
+
+export { MemoizedMediaPin };

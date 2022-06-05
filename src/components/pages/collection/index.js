@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import getCollectionInfoById from "../../../fakes/collection-infos";
 import styles from "./index.module.css";
@@ -6,16 +6,18 @@ import { random, genIdChars } from "../../../tools/number";
 import ExpandableText from "../../expandable-text";
 import BtnBorder from "../../btn-border";
 import PopoverEditor from "./popover-editor";
-import MediaPin from "../../media-pin-layout";
+import { MemoizedMediaPin } from "../../media-pin-layout";
 import GreyPinItem from "../../fakes/grey-pin-item";
-import withExpandableLayerForPin from "../../hoc/with-expandable-layer-for-pin";
+import withMsgLink from "../../hoc/with-msg-link";
+import withExpandableForPin from "../../hoc/with-expandable-for-pin";
 import FakeBar from "./fake-bar";
+import { Outlet } from "react-router-dom";
 
 /**收藏集 */
 const Collection = () => {
   let { id } = useParams();
   const [ info, setInfo ] = useState({});
-  const [ requesting, setRequesting ] = useState(false); // 是否获取到数据
+  const [ requesting, setRequesting ] = useState(true); // 是否获取到数据
   const [ openedEditor, setOpenedEditor ] = useState(false);
   useEffect(() => {
     getInfo();
@@ -28,21 +30,20 @@ const Collection = () => {
     return () => {}
   }, [id]);
 
-  const openEditorLayer = () => {
+  const openEditorLayer = useCallback(() => {
     setOpenedEditor(true);
-  };
+  }, []);
 
-  const closeEditorLayer = () => {
+  const closeEditorLayer = useCallback(() => {
     setOpenedEditor(false);
-  };
+  }, []);
 
   const itemsData = useMemo(() => [...Array(25)].map((_, i) => ({ id: genIdChars(), h: random(69, 361) })), []);
-  const GreyPinItemWithExpandableLayerForPin = useMemo(() => withExpandableLayerForPin(GreyPinItem), []);
-
+  const GreyPinItemWithMsgNavLink = useMemo(() => withMsgLink(GreyPinItem), []);
+  const OutletWithExpandableForPin = useMemo(() => withExpandableForPin(Outlet), []);
   if (requesting) {
     return <div>Fetching the data, please wait ...</div>;
   }
-
   return <>
     <div className={styles.collection_wrapper}>
       <div className={styles.profile}>
@@ -63,14 +64,14 @@ const Collection = () => {
         </div>
       </div>
       <div className={styles.content}>
-        <MediaPin
+        <MemoizedMediaPin
           mGap={12}
           gap={36}
           mItemW={180}
           itemW={210}
           itemsData={itemsData}
-          ItemComp={GreyPinItemWithExpandableLayerForPin}
-          disabledPlace={false}
+          ItemComp={GreyPinItemWithMsgNavLink}
+          PlaceComp={OutletWithExpandableForPin}
           placeHeight={521} />
       </div>
     </div>

@@ -1,5 +1,4 @@
-import { useState, useRef, useEffect, Fragment } from "react";
-import { Outlet } from "react-router-dom";
+import { useState, useRef, useEffect, Fragment, useCallback } from "react";
 import styles from "./index.module.css";
 
 /**
@@ -8,7 +7,7 @@ import styles from "./index.module.css";
  * 设置宽度，子项目将均匀布局在宽度中；设置左右间隔，子项目将按间隔
  * 布局，宽度即子项目间隔后的宽度。
  */
-export default function PinLayout({ width, itemWidth, colNum, gapX, gapY, placeHeight = 521, ItemComp, itemsData = [], disabledPlace }) {
+function PinLayout({ width, itemWidth, colNum, gapX, gapY, placeHeight = 521, ItemComp, itemsData = [], PlaceComp }) {
   // 容器宽度
   const [w, setW] = useState(0);
   // 容器高度
@@ -29,6 +28,7 @@ export default function PinLayout({ width, itemWidth, colNum, gapX, gapY, placeH
     offsetY: 0, // 项目偏移距离
     data: itemsData[i],
   })));
+  const itemInfosRef = useRef(itemInfos);
   // 每一纵列由上至下的项目信息
   const [infosDividedByCols, setInfosDividedByCols] = useState([]);
   // 选中的项目 id
@@ -86,7 +86,6 @@ export default function PinLayout({ width, itemWidth, colNum, gapX, gapY, placeH
       itemCs.push(minColId);
       colBottomIds[minColId] = i;
     }
-    
     setH(wrapperH);
     setH2(wrapperH);
     // 生成项目信息
@@ -100,6 +99,7 @@ export default function PinLayout({ width, itemWidth, colNum, gapX, gapY, placeH
       data: itemsData[i],
     }));
     setItemInfos(itemInfos);
+    itemInfosRef.current = itemInfos;
     // 每一纵列的项目信息
     const infosDividedByCols = itemInfos.reduce((acc, cur) => {
       const curCol = cur.colId;
@@ -117,18 +117,24 @@ export default function PinLayout({ width, itemWidth, colNum, gapX, gapY, placeH
    * [id2, offset2],
    * [id3, offset3]]
    */
-  const setItemOffsetYs = (itemsMapAry) => {
+  const setItemOffsetYs = useCallback((itemsMapAry) => {
     const offsetMap = new Map(itemsMapAry);
     setItemInfos(itemInfos => {
-      return itemInfos.map(item => {
+      const res = itemInfos.map(item => {
         const offsetY = offsetMap.get(item.id) == null ? item.offsetY : offsetMap.get(item.id);
         return {
           ...item,
           offsetY,
         };
       });
+      itemInfosRef.current = res;
+      return res;
     });
-  };
+  }, []);
+
+  const deselect = useCallback(() => setSelectedItem(null), []);
+  const select = useCallback(id => setSelectedItem(id), []);
+
   return (<>
     <div
       ref={wrapperRef}
@@ -147,7 +153,7 @@ export default function PinLayout({ width, itemWidth, colNum, gapX, gapY, placeH
             top: `${item.top}px`,
             width: `${itemWidth}px`,
           }}>
-          <ItemComp
+          {ItemComp && <ItemComp
             {...item.data}
             info={item} // 项目数据
             colId={item.colId} // 项目所处的纵列
@@ -156,8 +162,8 @@ export default function PinLayout({ width, itemWidth, colNum, gapX, gapY, placeH
             setItemOffsetYs={setItemOffsetYs} // 设置项目的纵向偏移
             itemsDividedByCols={infosDividedByCols} // 按纵列分的项目数据
             itemInfos={itemInfos} // 所有项目数据
-            deselect={() => setSelectedItem(null)} // 取消选中函数
-            select={id => setSelectedItem(id)} // 选中函数
+            deselect={deselect} // 取消选中函数
+            select={select} // 选中函数
             placeH={placeHeight} // 详情区域的高度
             gapY={gapY} // 纵向的项目间的间隔
             gapX={gapX} // 横向的项目间的间隔
@@ -165,22 +171,39 @@ export default function PinLayout({ width, itemWidth, colNum, gapX, gapY, placeH
             setPlaceData={setPlaceData} // 设置详情区域的数据
             originH={h2} // 原始容器的高度
             setH={setH} // 设置容器的高度
-          />
+          />}
         </div>
       </Fragment>)}
-      {! disabledPlace && selectedItem != null && <>
+      {PlaceComp && <>
         <div
           className={styles.placeholder}
           style={{
             top: `${placeT}px`,
             height: `${placeHeight}px`,
           }}>
-          <Outlet context={[placeData]} />
+          <PlaceComp
+            selectedItem={selectedItem} // 被选中的项目 id
+            setItemOffsetYs={setItemOffsetYs} // 设置项目的纵向偏移
+            itemsDividedByCols={infosDividedByCols} // 按纵列分的项目数据
+            itemInfosRef={itemInfosRef} // 所有项目数据
+            deselect={deselect} // 取消选中函数
+            select={select} // 选中函数
+            placeH={placeHeight} // 详情区域的高度
+            gapY={gapY} // 纵向的项目间的间隔
+            gapX={gapX} // 横向的项目间的间隔
+            setPlaceTop={setPlaceTop} // 设置详情区域距离顶端的距离
+            setPlaceData={setPlaceData} // 设置详情区域的数据
+            originH={h2} // 原始容器的高度
+            setH={setH} // 设置容器的高度
+            context={[placeData]}
+          />
         </div>
       </>}
     </div>
   </>);
-};
+}
+
+export default PinLayout;
 
 
 function getMinHeight(colNum, colBottomIds, itemTops, itemHeights) {

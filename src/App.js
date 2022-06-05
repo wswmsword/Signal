@@ -19,19 +19,19 @@ function App() {
         <Route path="collections">
           <Route path=":id" element={<Collection />}>
             <Route path="msgs">
-              <Route path=":signalId" element={<GreyPinPlace />} />
+              <Route path=":msgId" element={<GreyPinPlace />} />
             </Route>
           </Route>
         </Route>
         <Route path="rooms" element={<Rooms />} />
         <Route path="" element={<Latest />}>
           <Route path="msgs">
-            <Route path=":signalId" element={<GreyPinPlace />} />
+            <Route path=":msgId" element={<GreyPinPlace />} />
           </Route>
         </Route>
         <Route path="drafts" element={<Drafts />}>
           <Route path="msgs">
-            <Route path=":signalId" element={<GreyPinPlace />} />
+            <Route path=":msgId" element={<GreyPinPlace />} />
           </Route>
         </Route>
       </Routes>
