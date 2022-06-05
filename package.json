@@ -49,7 +49,8 @@
     ]
   },
   "devDependencies": {
-    "@tsconfig/create-react-app": "^1.0.2"
+    "@tsconfig/create-react-app": "^1.0.2",
+    "typescript-plugin-css-modules": "^3.4.0"
   },
   "homepage": "/signal"
 }

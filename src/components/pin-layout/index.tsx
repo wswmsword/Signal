@@ -1,5 +1,27 @@
-import { useState, useRef, useEffect, Fragment, useCallback } from "react";
+import React, { useState, useRef, useEffect, Fragment, useCallback } from "react";
 import styles from "./index.module.css";
+
+type PinLayoutProps = {
+  width: number,
+  itemWidth: number,
+  colNum: number,
+  gapX: number,
+  gapY: number,
+  placeHeight: number,
+  itemsData: object[],
+  ItemComp?: React.ComponentType<any>,
+  PlaceComp?: React.ComponentType<any>,
+};
+
+type itemInfo = {
+  id: number,
+  top: number,
+  left: number,
+  height: number,
+  colId: number,
+  offsetY: number,
+  data: object,
+};
 
 /**
  * 砖块布局组件
@@ -7,7 +29,7 @@ import styles from "./index.module.css";
  * 设置宽度，子项目将均匀布局在宽度中；设置左右间隔，子项目将按间隔
  * 布局，宽度即子项目间隔后的宽度。
  */
-function PinLayout({ width, itemWidth, colNum, gapX, gapY, placeHeight = 521, ItemComp, itemsData = [], PlaceComp }) {
+function PinLayout({ width, itemWidth, colNum, gapX, gapY, placeHeight = 521, ItemComp, itemsData = [], PlaceComp }:  PinLayoutProps) {
   // 容器宽度
   const [w, setW] = useState(0);
   // 容器高度
@@ -19,7 +41,7 @@ function PinLayout({ width, itemWidth, colNum, gapX, gapY, placeHeight = 521, It
   // 子项目数目
   const itemsLen = itemsData.length;
   // top, left, ItemComp，项目信息
-  const [itemInfos, setItemInfos] = useState([...Array(itemsLen)].map((_, i) => ({
+  const [itemInfos, setItemInfos] = useState<itemInfo[]>([...Array(itemsLen)].map((_, i) => ({
     id: 0,
     top: 0, // 项目顶部与容器顶部的距离
     left: 0, // 项目的左边与容器左边的距离
@@ -28,17 +50,17 @@ function PinLayout({ width, itemWidth, colNum, gapX, gapY, placeHeight = 521, It
     offsetY: 0, // 项目偏移距离
     data: itemsData[i],
   })));
-  const itemInfosRef = useRef(itemInfos);
+  const itemInfosRef = useRef<itemInfo[]>(itemInfos);
   // 每一纵列由上至下的项目信息
-  const [infosDividedByCols, setInfosDividedByCols] = useState([]);
+  const [infosDividedByCols, setInfosDividedByCols] = useState<itemInfo[][]>([]);
   // 选中的项目 id
-  const [selectedItem, setSelectedItem] = useState(null);
+  const [selectedItem, setSelectedItem] = useState<number | null>(null);
   // const [placeholderTop, setPlaceholderTop] = useState(0);
   // 详情区域距离顶部的距离
   const [placeT, setPlaceTop] = useState(0);
   const [placeData, setPlaceData] = useState({ init: "bird" });
 
-  const wrapperRef = useRef(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // 如果提供宽度就根据宽度计算横向间隔，如果提供间隔就取间隔
@@ -51,22 +73,24 @@ function PinLayout({ width, itemWidth, colNum, gapX, gapY, placeHeight = 521, It
     // 子项目数目
     const itemsLen = itemsData.length;
     // 项目的高度
-    const itemHs = Array.prototype.map.call(wrapperRef.current.childNodes, node => node.clientHeight);
+    const wrapperEl = wrapperRef.current;
+    if (wrapperEl == null) { return ; }
+    const itemHs = Array.prototype.map.call<NodeListOf<ChildNode>, any, number[]>(wrapperEl.childNodes, (node: HTMLDivElement) => node.clientHeight);
     // 列的左边距离
     const colLs = [0];
     for (let i = 1; i < colNum; ++ i) {
       colLs.push(colLs[i - 1] + itemWidth + g);
     }
     // 项目的左边距离
-    const itemLs = [];
+    const itemLs: number[] = [];
     // 容器高度
     let wrapperH = 0;
     // 项目的上边距离
-    const itemTs = [];
+    const itemTs: number[] = [];
     // 每一纵列底部项目的 id
     const colBottomIds = [];
     // 项目的所在列 id
-    const itemCs = [];
+    const itemCs: number[] = [];
     // 第一横排的容器高度、项目左边距离、项目顶部距离；纵列最下面项目的 id
     for (let i = 0; i < colNum; ++ i) {
       wrapperH = Math.max(wrapperH, itemHs[i]);
@@ -101,7 +125,7 @@ function PinLayout({ width, itemWidth, colNum, gapX, gapY, placeHeight = 521, It
     setItemInfos(itemInfos);
     itemInfosRef.current = itemInfos;
     // 每一纵列的项目信息
-    const infosDividedByCols = itemInfos.reduce((acc, cur) => {
+    const infosDividedByCols: itemInfo[][] = itemInfos.reduce((acc, cur) => {
       const curCol = cur.colId;
       acc[curCol] = acc[curCol].concat(cur);
       return acc;
@@ -117,11 +141,11 @@ function PinLayout({ width, itemWidth, colNum, gapX, gapY, placeHeight = 521, It
    * [id2, offset2],
    * [id3, offset3]]
    */
-  const setItemOffsetYs = useCallback((itemsMapAry) => {
-    const offsetMap = new Map(itemsMapAry);
-    setItemInfos(itemInfos => {
-      const res = itemInfos.map(item => {
-        const offsetY = offsetMap.get(item.id) == null ? item.offsetY : offsetMap.get(item.id);
+  const setItemOffsetYs = useCallback((itemsMapAry: Array<readonly [number, number]>) => {
+    const offsetMap = new Map<number, number>(itemsMapAry);
+    setItemInfos((itemInfos: itemInfo[]) => {
+      const res = itemInfos.map((item: itemInfo) => {
+        const offsetY = offsetMap.get(item.id) == null ? item.offsetY : offsetMap.get(item.id) as number;
         return {
           ...item,
           offsetY,
@@ -133,7 +157,7 @@ function PinLayout({ width, itemWidth, colNum, gapX, gapY, placeHeight = 521, It
   }, []);
 
   const deselect = useCallback(() => setSelectedItem(null), []);
-  const select = useCallback(id => setSelectedItem(id), []);
+  const select = useCallback((id: number) => setSelectedItem(id), []);
 
   return (<>
     <div
@@ -206,7 +230,7 @@ function PinLayout({ width, itemWidth, colNum, gapX, gapY, placeHeight = 521, It
 export default PinLayout;
 
 
-function getMinHeight(colNum, colBottomIds, itemTops, itemHeights) {
+function getMinHeight(colNum: number, colBottomIds: number[], itemTops: number[], itemHeights: number[]) {
   let minTop = itemTops[colBottomIds[0]] + itemHeights[colBottomIds[0]],
   minItemId = colBottomIds[0],
   minColId = 0;

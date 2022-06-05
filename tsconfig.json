@@ -6,7 +6,8 @@
     "checkJs": false,
     "esModuleInterop": true,
     "jsx": "react",
-    "noImplicitAny": true
+    "noImplicitAny": true,
+    "plugins": [{ "name": "typescript-plugin-css-modules" }]
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "build/**/*"]
