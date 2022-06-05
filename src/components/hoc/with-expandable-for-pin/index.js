@@ -15,8 +15,16 @@ export default function withExpandableForPin(WrappedComponent) {
 
     /**选中并展开 */
     const selectAndExpand = useCallback(() => {
+      if (itemsDividedByCols.length === 0) { return ; }
       const info = itemInfosRef.current.find(info => info.data.id === msgId);
-      if (info == null) { return ; }
+      if (info == null) {
+        // 在顶部展开
+        const offsetYs = getOffsetAtTop(itemInfosRef, placeH, gapY);
+        setItemOffsetYs(offsetYs);
+        setPlaceTop(0);
+        setH(originH + placeH + gapY);
+        return ;
+      }
       // 选中
       select(info.id);
       // 计算因为展开详情区域项目需要移动的偏移量
@@ -30,7 +38,7 @@ export default function withExpandableForPin(WrappedComponent) {
       // 设置详情区域距离顶部的距离
       setPlaceTop(info.top + info.height + gapY);
       // 设置展开后的容器高度
-      setH(h => originH +  placeH + gapY);
+      setH(originH + placeH + gapY);
     }, [gapY, itemInfosRef, itemsDividedByCols, msgId, originH, placeH, select, setH, setItemOffsetYs, setPlaceTop]);
 
     useEffect(() => {
@@ -48,6 +56,10 @@ export default function withExpandableForPin(WrappedComponent) {
   };
 };
 
+/**获取在顶部展开时项目的偏移量 */
+function getOffsetAtTop(itemInfosRef, placeH, gapY) {
+  return itemInfosRef.current.map(info => [info.id, placeH + gapY])
+}
 
 /**计算每一纵列因为展开而需要移动的偏移量 */
 function calcOffset(info, itemsDividedByCols, placeH, gapY) {
