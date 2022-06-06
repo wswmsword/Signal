@@ -1,14 +1,21 @@
-import { useRef, useState } from "react";
+import { MutableRefObject, useEffect, useRef, useState } from "react";
 import Portal from "../portal";
 import styles from "./index.module.css";
 import transition from "./transition.module.css";
 import { CSSTransition } from "react-transition-group";
+import { useRect } from "../../hooks/useRect";
+import React from "react";
+
+type ExpandableTextProps = {
+  lineClamp: number,
+  children?: React.ReactNode,
+};
 
 /**可展开文字的组件 */
-const ExpandableText = props => {
-  const {lineClamp} = props;
+const ExpandableText = (props: ExpandableTextProps) => {
+  const { lineClamp } = props;
 
-  const txtRef = useRef(null);
+  const txtRef = useRef<any>(null);
   const longTxtRef = useRef(null);
   const [expanded, setExpanded] = useState(false);
   const [collapsed, setCollapsed] = useState(true);
@@ -19,13 +26,22 @@ const ExpandableText = props => {
   const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);
   const padding = 18;
-  const expandTxt = () => {
+
+  const rect = useRect(txtRef);
+
+  useEffect(() => {
+    if (collapsed) { return ; }
     const txtEle = txtRef.current;
-    const { offsetHeight, scrollHeight, offsetTop, offsetWidth, offsetLeft } = txtEle;
-    setTop(offsetTop - padding - 1);
-    setLeft(offsetLeft - padding - 1);
+    const { scrollHeight } = txtEle;
+    if (rect == null) { return ; }
+    const { left, top, width } = rect;
+    setTop(top - padding - 1);
+    setLeft(left - padding - 1);
     setHeight(scrollHeight);
-    setWidth(offsetWidth + 2);
+    setWidth(width + 1);
+  }, [collapsed, rect])
+
+  const expandTxt = () => {
     setCollapsed(false);
   };
   const collapseTxt = () => {

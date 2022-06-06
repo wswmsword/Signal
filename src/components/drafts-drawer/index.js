@@ -5,6 +5,7 @@ import styles from "./index.module.css";
 import draftsData from "./fake.js";
 import BtnBorder from "../btn-border";
 import useMobile from "../../hooks/useMobile";
+import ExpandableText from "../expandable-text";
 
 /**
  * 速写抽屉组件
@@ -31,7 +32,10 @@ const DraftsDrawer = () => {
         <div className={styles.drawer_inner}>
           <ul className={styles.drafts_list}>
             {drafts.map(draft => <React.Fragment key={draft.id}>
-              <li className={`${styles.draft_item}`}><div className="ellipsis-2">{draft.content}</div></li>
+              <li className={`${styles.draft_item}`}>
+                <ExpandableText lineClamp={3}>{draft.content}</ExpandableText>
+                {/* <div className="ellipsis-2">{draft.content}</div> */}
+              </li>
             </React.Fragment>)}
           </ul>
           <div className={styles.editor_wrapper}>
