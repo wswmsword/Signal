@@ -27,6 +27,10 @@ const drafts = [
     id: 6,
     content: "晚安～",
   },
+  {
+    id: 7,
+    content: "速写速写速写速写速写速写速写速写速写速写这里是速写，就像速写，拿起铅笔在纸上随意勾勒和涂改。就像速写，拿起铅笔在纸上随意勾勒和涂改。",
+  }
 ]
 
 export default drafts;

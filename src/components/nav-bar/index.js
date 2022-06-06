@@ -55,7 +55,6 @@ const NavBar = props => {
       </>}
       <PaddingLink to="rooms" theme="dark" rowPadding="7">房间</PaddingLink>
       <PaddingLink to="" theme="dark" rowPadding="7">最新</PaddingLink>
-      <PaddingLink to="drafts" theme="dark" rowPadding="7">速写</PaddingLink>
     </nav>
     <ul className={`${styles.nav_right} ${styles.nav_menu}`}>
       {! isMobile && <>
