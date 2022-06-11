@@ -33,7 +33,7 @@ const DraftsDrawer = () => {
           <ul className={styles.drafts_list}>
             {drafts.map(draft => <React.Fragment key={draft.id}>
               <li className={`${styles.draft_item}`}>
-                <ExpandableText lineClamp={3}>{draft.content}</ExpandableText>
+                <ExpandableText lineClamp={3} disabledScroll>{draft.content}</ExpandableText>
                 {/* <div className="ellipsis-2">{draft.content}</div> */}
               </li>
             </React.Fragment>)}

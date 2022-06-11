@@ -1,19 +1,20 @@
-import { MutableRefObject, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Portal from "../portal";
 import styles from "./index.module.css";
 import transition from "./transition.module.css";
 import { CSSTransition } from "react-transition-group";
-import { useRect } from "../../hooks/useRect";
+import useCollapseRect from "../../hooks/useCollapseRect";
 import React from "react";
 
 type ExpandableTextProps = {
   lineClamp: number,
+  disabledScroll?: boolean,
   children?: React.ReactNode,
 };
 
 /**可展开文字的组件 */
 const ExpandableText = (props: ExpandableTextProps) => {
-  const { lineClamp } = props;
+  const { lineClamp, disabledScroll } = props;
 
   const txtRef = useRef<any>(null);
   const longTxtRef = useRef(null);
@@ -27,19 +28,21 @@ const ExpandableText = (props: ExpandableTextProps) => {
   const [height, setHeight] = useState(0);
   const padding = 18;
 
-  const rect = useRect(txtRef);
+  const rect = useCollapseRect(txtRef, collapsed);
 
   useEffect(() => {
-    if (collapsed) { return ; }
     const txtEle = txtRef.current;
     const { scrollHeight } = txtEle;
     if (rect == null) { return ; }
     const { left, top, width } = rect;
-    setTop(top - padding - 1);
-    setLeft(left - padding - 1);
+    const finalLeft = left;
+    const finalTop = top;
+    setTop(finalTop - padding - 1 + window.scrollY);
+    setLeft(finalLeft - padding - 1);
     setHeight(scrollHeight);
     setWidth(width + 1);
-  }, [collapsed, rect])
+
+  }, [rect]);
 
   const expandTxt = () => {
     setCollapsed(false);
@@ -55,6 +58,23 @@ const ExpandableText = (props: ExpandableTextProps) => {
     setCollapsed(true);
     setExitedTxt(false);
   };
+
+  useEffect(() => {
+    const set = () => { collapseTxt(); };
+    if (expanded) {
+      if (disabledScroll) {
+        window.addEventListener("wheel", set);
+        window.addEventListener("click", set);
+        window.addEventListener("touchmove", set);
+      }
+    }
+    return () => {
+      window.removeEventListener("wheel", set);
+      window.removeEventListener("click", set);
+      window.removeEventListener("touchmove", set);
+    };
+  }, [disabledScroll, expanded]);
+
   return <>
     <CSSTransition
       nodeRef={txtRef}
