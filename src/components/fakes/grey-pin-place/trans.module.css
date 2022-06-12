@@ -1,0 +1,10 @@
+.place_appear {
+  opacity: 0;
+  /* transform: scale(.6); */
+}
+.place_appear_active {
+  opacity: 1;
+  /* transform: translateX(0); */
+  transition: opacity 180ms, transform 180ms;
+  transition-delay: 250ms;
+}

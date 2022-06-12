@@ -8,9 +8,9 @@ import Rooms from "./components/pages/rooms";
 import { Routes, Route } from "react-router-dom";
 import preval from "preval.macro";
 import GreyPinPlace from "./components/fakes/grey-pin-place";
+import React from "react";
 
 function App() {
-
   return (
     <div className="App">
       <NavBar />
