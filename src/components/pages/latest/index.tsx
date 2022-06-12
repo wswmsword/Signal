@@ -5,17 +5,23 @@ import GreyPinItem from "../../fakes/grey-pin-item";
 import { random, genIdChars } from "../../../tools/number";
 import withMsgLink from "../../hoc/with-msg-link";
 import withExpandableForPin from "../../hoc/with-expandable-for-pin";
-import { useMemo } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { Outlet } from "react-router-dom";
 import React from "react";
+import BtnBorder from "../../btn-border";
 /**最新 */
 const Latest = () => {
   const isMobile = useMobile();
   
-  const itemsData = useMemo(() => [...Array(25)].map((_, i) => ({ id: genIdChars(), h: random(69, 361) })), []);
-  const GreyPinItemWithMsgNavLink = withMsgLink(GreyPinItem);
-  const OutletWithExpandableForPin = withExpandableForPin(Outlet);
+  // const memoItemsData = useMemo(() => [...Array(25)].map((_, i) => ({ id: genIdChars(), h: random(69, 361) })), []);
+  const [itemsData, setData] = useState([...Array(25)].map((_, i) => ({ id: genIdChars(), h: random(69, 361) })));
+  const GreyPinItemWithMsgNavLink = useMemo(() => withMsgLink(GreyPinItem), []);
+  const OutletWithExpandableForPin = useMemo(() => withExpandableForPin(Outlet), []);
 
+  const loadMore = useCallback(() => {
+    const nextData = [...Array(25)].map((_, i) => ({ id: genIdChars(), h: random(69, 361) }));
+    setData(v => v.concat(nextData))
+  }, []);
   return <>
     <div className={`${styles.content} ${isMobile ? styles.mobile : ''}`}>
       <h1>最新</h1>
@@ -30,6 +36,14 @@ const Latest = () => {
       ItemComp={GreyPinItemWithMsgNavLink}
       PlaceComp={OutletWithExpandableForPin}
       placeHeight={521} />
+    <div style={{
+      height: "99px",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+    }}>
+      <BtnBorder onClick={loadMore}>More</BtnBorder>
+    </div>
   </>
 };
 

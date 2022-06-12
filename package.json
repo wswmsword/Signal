@@ -50,6 +50,7 @@
   },
   "devDependencies": {
     "@tsconfig/create-react-app": "^1.0.2",
+    "@types/preval.macro": "^3.0.0",
     "@types/react-transition-group": "^4.4.4",
     "typescript-plugin-css-modules": "^3.4.0"
   },

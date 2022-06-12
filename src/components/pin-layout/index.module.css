@@ -20,6 +20,6 @@
   position: absolute;
   width: 100%;
   height: auto;
-  background-color: rgb(251 251 251);
   z-index: 0;
+  transition: top .3s, left .3s, transform .3s;
 }

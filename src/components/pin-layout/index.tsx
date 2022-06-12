@@ -38,18 +38,8 @@ function PinLayout({ width, itemWidth, colNum, gapX, gapY, placeHeight = 521, It
   const [h2, setH2] = useState(0);
   // 项目横向间隔
   const [g, setG] = useState(0);
-  // 子项目数目
-  const itemsLen = itemsData.length;
   // top, left, ItemComp，项目信息
-  const [itemInfos, setItemInfos] = useState<itemInfo[]>([...Array(itemsLen)].map((_, i) => ({
-    id: 0,
-    top: 0, // 项目顶部与容器顶部的距离
-    left: 0, // 项目的左边与容器左边的距离
-    height: 0, // 项目高度
-    colId: 0, // 项目所在纵列
-    offsetY: 0, // 项目偏移距离
-    data: itemsData[i],
-  })));
+  const [itemInfos, setItemInfos] = useState<itemInfo[]>([]);
   const itemInfosRef = useRef<itemInfo[]>(itemInfos);
   // 每一纵列由上至下的项目信息
   const [infosDividedByCols, setInfosDividedByCols] = useState<itemInfo[][]>([]);
@@ -59,8 +49,28 @@ function PinLayout({ width, itemWidth, colNum, gapX, gapY, placeHeight = 521, It
   // 详情区域距离顶部的距离
   const [placeT, setPlaceTop] = useState(0);
   const [placeData, setPlaceData] = useState({ init: "bird" });
+  // 加载完成的项目数量
+  const [loadedItems, setLoaded] = useState<Array<boolean | undefined>>([]);
 
   const wrapperRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // 子项目数目
+    const itemsLen = itemsData.length;
+    setItemInfos(v => {
+      const prevLen = v.length;
+      const concatedItems = v.concat([...Array(itemsLen - prevLen)].map((_, i) => ({
+        id: 0,
+        top: 0, // 项目顶部与容器顶部的距离
+        left: 0, // 项目的左边与容器左边的距离
+        height: 0, // 项目高度
+        colId: 0, // 项目所在纵列
+        offsetY: 0, // 项目偏移距离
+        data: itemsData[i],
+      })));
+      return concatedItems;
+    });
+  }, [itemsData]);
 
   useEffect(() => {
     // 如果提供宽度就根据宽度计算横向间隔，如果提供间隔就取间隔
@@ -70,6 +80,11 @@ function PinLayout({ width, itemWidth, colNum, gapX, gapY, placeHeight = 521, It
   }, [width, gapX, colNum, itemWidth]);
 
   useEffect(() => {
+    // 加载完成的项目数量
+    const loadedItemsLen = loadedItems.filter(b => b).length;
+    // 所有项目数量
+    const totalItemsLen = itemsData.length;
+    if (loadedItemsLen !== totalItemsLen) { return ; }
     // 子项目数目
     const itemsLen = itemsData.length;
     // 项目的高度
@@ -113,7 +128,7 @@ function PinLayout({ width, itemWidth, colNum, gapX, gapY, placeHeight = 521, It
     setH(wrapperH);
     setH2(wrapperH);
     // 生成项目信息
-    const itemInfos = [...Array(itemsLen)].map((_, i) => ({
+    const newItemInfos = [...Array(itemsLen)].map((_, i) => ({
       id: i,
       top: itemTs[i],
       left: itemLs[i],
@@ -122,16 +137,16 @@ function PinLayout({ width, itemWidth, colNum, gapX, gapY, placeHeight = 521, It
       offsetY: 0,
       data: itemsData[i],
     }));
-    setItemInfos(itemInfos);
-    itemInfosRef.current = itemInfos;
+    setItemInfos(newItemInfos);
+    itemInfosRef.current = newItemInfos;
     // 每一纵列的项目信息
-    const infosDividedByCols: itemInfo[][] = itemInfos.reduce((acc, cur) => {
+    const infosDividedByCols: itemInfo[][] = newItemInfos.reduce((acc, cur) => {
       const curCol = cur.colId;
       acc[curCol] = acc[curCol].concat(cur);
       return acc;
     }, [...Array(colNum)].fill([]));
     setInfosDividedByCols(infosDividedByCols);
-  }, [wrapperRef, w, itemWidth, colNum, g, gapY, itemsData]);
+  }, [wrapperRef, w, itemWidth, colNum, g, gapY, itemsData, loadedItems]);
 
   /**
    * 指定 item 设置偏移
@@ -158,6 +173,16 @@ function PinLayout({ width, itemWidth, colNum, gapX, gapY, placeHeight = 521, It
 
   const deselect = useCallback(() => setSelectedItem(null), []);
   const select = useCallback((id: number) => setSelectedItem(id), []);
+
+  const setLoadedItem = useCallback((i: number) => {
+    return () => {
+      setLoaded(v => {
+        const newV = [...v];
+        newV[i] = true;
+        return newV;
+      });
+    };
+  }, []);
 
   return (<>
     <div
@@ -195,6 +220,7 @@ function PinLayout({ width, itemWidth, colNum, gapX, gapY, placeHeight = 521, It
             setPlaceData={setPlaceData} // 设置详情区域的数据
             originH={h2} // 原始容器的高度
             setH={setH} // 设置容器的高度
+            readyToCalc={setLoadedItem(i)} // 设置项目加载完成，可以计算位置了
           />}
         </div>
       </Fragment>)}

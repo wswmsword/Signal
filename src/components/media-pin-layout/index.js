@@ -1,4 +1,4 @@
-import { useState, useEffect, memo } from "react";
+import { useState, useEffect, memo, useMemo } from "react";
 import PinLayout from "../pin-layout";
 import withAutoColumn from "../hoc/with-auto-column";
 import useMobile from "../../hooks/useMobile";
@@ -8,10 +8,10 @@ const MediaPin = ({ mGap, gap, mItemW, itemW, ...rest }) => {
   const isMobile = useMobile();
   const [g, setG] = useState(gap);
   const [iW, setIW] = useState(itemW);
-  const PinLayoutWithAutoCol = withAutoColumn(PinLayout, {
+  const PinLayoutWithAutoCol = useMemo(() => withAutoColumn(PinLayout, {
     gap: g,
     itemW: iW,
-  });
+  }), [g, iW]);
   useEffect(() => {
     if (isMobile) {
       setG(mGap);

@@ -4,7 +4,27 @@ import imgPDraw from "../assets/profile-draw.jpg";
 import imgPUta from "../assets/profile-uta.jpg";
 import imgPJiaozi from "../assets/profile-jiaozi.jpg";
 
-const collectionInfos = [{
+type collectionInfo = {
+  id: number;
+  title: string;
+  titleImg: any;
+  desc: string;
+  state: number;
+  first: {
+      id: number;
+      name: string;
+      avatar: string;
+  };
+  postsNum: string;
+  keyIdx: number;
+  members: {
+      id: number;
+      name: string;
+      avatar: string;
+  }[];
+};
+
+const collectionInfos: collectionInfo[] = [{
   id: 1,
   title: "想去的地方",
   titleImg: imgPBack,
@@ -116,7 +136,7 @@ const collectionInfos = [{
   }],
 }];
 
-const getCollectionInfoById = id => {
+const getCollectionInfoById = (id: number | string | undefined): Promise<collectionInfo> => {
   const numberId = Number(id);
   return new Promise(resolve => {
     setTimeout(() => {

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import PanelDrawer from "../panel-drawer";
 import Portal from "../portal/index.js";
 import styles from "./index.module.css";
-import draftsData from "./fake.js";
+import draftsData from "./fake";
 import BtnBorder from "../btn-border";
 import useMobile from "../../hooks/useMobile";
 import ExpandableText from "../expandable-text";
