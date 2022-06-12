@@ -20,7 +20,7 @@ const Latest = () => {
 
   const loadMore = useCallback(() => {
     const nextData = [...Array(25)].map((_, i) => ({ id: genIdChars(), h: random(69, 361) }));
-    setData(v => v.concat(nextData))
+    setData(v => v.concat(nextData));
   }, []);
   return <>
     <div className={`${styles.content} ${isMobile ? styles.mobile : ''}`}>

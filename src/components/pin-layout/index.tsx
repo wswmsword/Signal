@@ -66,7 +66,7 @@ function PinLayout({ width, itemWidth, colNum, gapX, gapY, placeHeight = 521, It
         height: 0, // 项目高度
         colId: 0, // 项目所在纵列
         offsetY: 0, // 项目偏移距离
-        data: itemsData[i],
+        data: itemsData[prevLen + i],
       })));
       return concatedItems;
     });
