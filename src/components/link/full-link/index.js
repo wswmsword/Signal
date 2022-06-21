@@ -29,4 +29,7 @@ const FullLink = React.forwardRef(
   }
 );
 
+// link: https://stackoverflow.com/a/67993106
+FullLink.displayName = "FullLink";
+
 export default FullLink;

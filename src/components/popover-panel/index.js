@@ -13,12 +13,12 @@ const PopoverPanel = props => {
   useEffect(() => {
     if (opened) {
       setTimeout(() => {
-        setDelay(true)
-      }, 0)
+        setDelay(true);
+      }, 0);
     } else {
-      setDelay(false)
+      setDelay(false);
     }
-  }, [opened])
+  }, [opened]);
   return <>
     <Popover opened={opened} close={close} antiTouch={antiTouch}>
       <Panel title={title} opened={opened && delay} close={close}>

@@ -14,7 +14,7 @@ const MediaPanel = props => {
       <PanelAttached opened={opened} rowPos={attachedRowPos} colPos={attachedColPos}>
         <ChildComp {...childProps} />
       </PanelAttached>}
-  </>
+  </>;
 };
 
 export default MediaPanel;

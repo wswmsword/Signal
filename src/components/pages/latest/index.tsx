@@ -44,7 +44,7 @@ const Latest = () => {
     }}>
       <BtnBorder onClick={loadMore}>More</BtnBorder>
     </div>
-  </>
+  </>;
 };
 
 export default Latest;

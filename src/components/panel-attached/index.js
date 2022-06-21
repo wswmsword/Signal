@@ -13,19 +13,19 @@ const COL_CLASS = {
   [COL_POS.TOP]: styles.col_top,
   [COL_POS.BOTTOM]: styles.col_bottom,
   [COL_POS.MIDDLE]: styles.col_middle,
-}
+};
 
 const ROW_POS = {
   LEFT: "left",
   RIGHT: "right",
   MIDDLE: "middle",
-}
+};
 
 const ROW_CLASS = {
   [ROW_POS.LEFT]: styles.row_left,
   [ROW_POS.RIGHT]: styles.row_right,
   [ROW_POS.MIDDLE]: styles.row_middle,
-}
+};
 
 const PanelAttached = props => {
   const { opened, colPos, rowPos } = props;

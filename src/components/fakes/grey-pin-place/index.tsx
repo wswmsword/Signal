@@ -10,7 +10,7 @@ import React from "react";
 const GreyPinPlace = () => {
   // const { c } = props;
   const [placeData]: any = useOutletContext();
-  const { msgId } = useParams()
+  const { msgId } = useParams();
   const nodeRef = useRef<HTMLDivElement | null>(null);
   return <>
     <CSSTransition
@@ -27,7 +27,7 @@ const GreyPinPlace = () => {
         {placeData.init}: {msgId}
       </div>
     </CSSTransition>
-  </>
+  </>;
 };
 
 export default GreyPinPlace;

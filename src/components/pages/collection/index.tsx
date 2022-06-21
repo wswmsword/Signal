@@ -36,7 +36,7 @@ type collectionInfo = {
 
 /**收藏集 */
 const Collection = () => {
-  let { id } = useParams();
+  const { id } = useParams();
   const [ info, setInfo ] = useState<collectionInfo | null>(null);
   const [ requesting, setRequesting ] = useState(true); // 是否获取到数据
   const [ openedEditor, setOpenedEditor ] = useState(false);
@@ -49,7 +49,8 @@ const Collection = () => {
       setInfo(res);
       setRequesting(false);
     }
-    return () => {}
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    return () => {};
   }, [id]);
 
   const openEditorLayer = useCallback(() => {
@@ -113,6 +114,6 @@ const Collection = () => {
       <BtnBorder onClick={loadMore}>More</BtnBorder>
     </div>
   </>;
-}
+};
 
 export default Collection;

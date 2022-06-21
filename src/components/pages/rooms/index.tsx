@@ -8,7 +8,7 @@ const Rooms = () => {
       <h1>房间</h1>
       <p>房间：事件事件事件事件事件事件事件事件事件事件事件事件事件都在房间里，进门请拿钥匙和脱鞋。</p>
     </div>
-  </div>
+  </div>;
 };
 
 export default Rooms;

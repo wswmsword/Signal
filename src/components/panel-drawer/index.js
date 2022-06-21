@@ -23,7 +23,7 @@ const PanelDrawer = props => {
         { props.children }
       </div>
     </div>
-  </>
+  </>;
 };
 
 export default PanelDrawer;

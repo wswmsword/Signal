@@ -1,12 +1,20 @@
 import Portal from "../portal";
 import styles from "./index.module.css";
-import transition from "./transition.module.css"
-import useKeyPress from "../../hooks/useKeyPress.js";
+import transition from "./transition.module.css";
+import useKeyPress from "../../hooks/useKeyPress";
 import TouchBlock from "../touch-block";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, ReactNode, MouseEvent } from "react";
 import { CSSTransition } from "react-transition-group";
+import { assertIsNode } from "../../tools/ts";
 
-const Popover = props => {
+interface PopoverProps {
+  children?: ReactNode;
+  opened: boolean,
+  close: () => void,
+  antiTouch?: boolean,
+}
+
+const Popover = (props: PopoverProps) => {
   const { opened, close, antiTouch } = props;
   const [openedTouchBlock, setOpenedTouchBlock] = useState(false);
   const nodeRef = useRef(null);
@@ -21,12 +29,16 @@ const Popover = props => {
     close();
   };
 
-  const closeHandler = e => {
+  const closeHandler = (e: MouseEvent<HTMLDivElement>): void => {
     e.stopPropagation();
-    const childNodes = (e.currentTarget).childNodes;
+    const curTarget = e.currentTarget;
+    const target = e.target;
+    assertIsNode(curTarget);
+    assertIsNode(target);
+    const childNodes = curTarget.childNodes;
 
     for (let i = 0; i < childNodes.length; i++) {
-      if (!includeTarget(childNodes[i], e.target)) {
+      if (!includeTarget(childNodes[i], target)) {
         if (antiTouch) {
           switchTouchBlock();
         } else {
@@ -44,7 +56,7 @@ const Popover = props => {
         close();
       }
     }
-  }, [escPress])
+  }, [escPress]);
 
   return <Portal>
     <CSSTransition
@@ -70,7 +82,8 @@ const Popover = props => {
   </Portal>;
 };
 
-function includeTarget(target, content) {
+function includeTarget(target: ChildNode, content: EventTarget) {
+  assertIsNode(content);
   return target.contains(content);
 }
 

@@ -1,7 +1,12 @@
 import TriggerBtn from "../trigger-btn";
 
-export default function PaddingTriggerBtn(props) {
-  const {rowPadding} = props;
+interface PTBProps {
+  rowPadding?: number;
+  style?: Record<string, unknown>;
+}
+
+export default function PaddingTriggerBtn(props: PTBProps) {
+  const { rowPadding } = props;
   return <>
     <TriggerBtn
       {...props}
@@ -10,5 +15,5 @@ export default function PaddingTriggerBtn(props) {
         height: "100%",
         padding: `0 ${rowPadding || 0}px`
       }} />
-  </>
+  </>;
 }

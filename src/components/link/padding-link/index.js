@@ -30,4 +30,6 @@ const PaddingLink = React.forwardRef(
   }
 );
 
+PaddingLink.displayName = "PaddingLink";
+
 export default PaddingLink;

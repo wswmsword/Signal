@@ -33,7 +33,7 @@ export default function withExpandableForPin(WrappedComponent) {
         const col = info.colId;
         const { positive, negative, separator } = expandingOffset[col];
         return [info.id, info.id > separator ? positive : -negative];
-      })
+      });
       setItemOffsetYs(offsetYs);
       // 设置详情区域距离顶部的距离
       setPlaceTop(info.top + info.height + gapY);
@@ -47,23 +47,23 @@ export default function withExpandableForPin(WrappedComponent) {
       } else {
         deselecteAndCollapse();
       }
-      return () => { /* unmount */ }
+      return () => { /* unmount */ };
     }, [deselecteAndCollapse, msgId, selectAndExpand]);
 
     return <>
       <WrappedComponent {...rest} />
     </>;
   };
-};
+}
 
 /**获取在顶部展开时项目的偏移量 */
 function getOffsetAtTop(itemInfosRef, placeH, gapY) {
-  return itemInfosRef.current.map(info => [info.id, placeH + gapY])
+  return itemInfosRef.current.map(info => [info.id, placeH + gapY]);
 }
 
 /**计算每一纵列因为展开而需要移动的偏移量 */
 function calcOffset(info, itemsDividedByCols, placeH, gapY) {
-  const baseBottom = info.top + info.height
+  const baseBottom = info.top + info.height;
   return itemsDividedByCols.reduce((acc, colInfos) => {
     const len = colInfos.length;
     let separator = 0;
@@ -71,7 +71,7 @@ function calcOffset(info, itemsDividedByCols, placeH, gapY) {
     let positive = 0;
     for (let i = 0; i < len; ++ i) {
       const curInfo = colInfos[i];
-      const curBottom = curInfo.top + curInfo.height
+      const curBottom = curInfo.top + curInfo.height;
       if (curBottom >= baseBottom) {
         separator = colInfos[i].id;
         negative = curBottom - baseBottom;

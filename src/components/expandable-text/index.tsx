@@ -127,6 +127,6 @@ const ExpandableText = (props: ExpandableTextProps) => {
       </CSSTransition>
     </Portal>
   </>;
-}
+};
 
 export default ExpandableText;

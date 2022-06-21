@@ -1,6 +1,12 @@
 import styles from "./index.module.css";
 
-const PanelReadOnly = props => {
+interface PanelProps {
+  opened?: boolean;
+  title?: string;
+  children?: React.ReactNode,
+}
+
+const PanelReadOnly = (props: PanelProps) => {
   const { opened, title } = props;
 
   return <>
@@ -12,7 +18,7 @@ const PanelReadOnly = props => {
         { props.children }
       </div>
     </div>
-  </>
+  </>;
 };
 
 export default PanelReadOnly;

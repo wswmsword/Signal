@@ -27,6 +27,6 @@ const useCollapseRect = <T extends Element>(ref: MutableRefObject<T | null>, col
   useEffectInEvent("scroll", set, collapsed, true);
   useEffectInEvent("click", set, collapsed);
   return rect;
-}
+};
 
 export default useCollapseRect;

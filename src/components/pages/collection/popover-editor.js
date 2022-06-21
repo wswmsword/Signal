@@ -11,7 +11,7 @@ const PopoverEditor = props => {
   const [ delay, setDelay ] = useState(false);
 
   const saveCollectionInfo = () => {
-
+    console.log("Saved!");
   };
 
   useEffect(() => {
@@ -32,6 +32,7 @@ const PopoverEditor = props => {
             className={`${styles.input_event} groove_shadow`}
             type="text"
             value={title}
+            // eslint-disable-next-line @typescript-eslint/no-empty-function
             onChange={() => {}} />
         </div>
         <div className={styles.intro_wrapper}>
@@ -39,6 +40,7 @@ const PopoverEditor = props => {
           <textarea
             className={`${styles.text_message} groove_shadow`}
             value={intro}
+            // eslint-disable-next-line @typescript-eslint/no-empty-function
             onChange={() => {}} />
         </div>
         <div className={styles.funcs_wrapper}>

@@ -11,7 +11,7 @@ import ExpandableText from "../expandable-text";
  * 速写抽屉组件
  */
 const DraftsDrawer = () => {
-  const [drafts] = useState(draftsData)
+  const [drafts] = useState(draftsData);
   const [opened, setOpened] = useState(false);
   const [message, setMessage] = useState('');
 
@@ -21,8 +21,7 @@ const DraftsDrawer = () => {
     setOpened(v => !v);
   };
 
-  // @ts-ignore
-  const handleMessageChange = (e) => {
+  const handleMessageChange = (e: any) => {
     setMessage(e.target.value);
   };
 

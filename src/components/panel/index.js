@@ -35,7 +35,7 @@ const Panel = props => {
         { props.children }
       </div>
     </div>
-  </CSSTransition>
+  </CSSTransition>;
 };
 
 export default Panel;

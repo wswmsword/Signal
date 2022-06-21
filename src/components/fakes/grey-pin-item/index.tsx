@@ -5,7 +5,7 @@ import React from "react";
 type PinItemProps = {
   h: number;
   selected: boolean;
-  readyToCalc: () => {};
+  readyToCalc: () => {/* */};
 }
 
 const GreyPinItem = (props: PinItemProps) => {
