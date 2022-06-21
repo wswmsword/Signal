@@ -1,19 +1,19 @@
 import React, { useState, useRef, useEffect, Fragment, useCallback } from "react";
 import styles from "./index.module.css";
 
-type PinLayoutProps = {
-  width: number,
+interface PinProps {
+  width?: number,
   itemWidth: number,
   colNum: number,
-  gapX: number,
-  gapY: number,
-  placeHeight: number,
+  gapX?: number,
+  gapY?: number,
+  placeHeight?: number,
   itemsData: object[],
   ItemComp?: React.ComponentType<any>,
   PlaceComp?: React.ComponentType<any>,
-};
+}
 
-type itemInfo = {
+interface itemInfo {
   id: number,
   top: number,
   left: number,
@@ -21,7 +21,7 @@ type itemInfo = {
   colId: number,
   offsetY: number,
   data: object,
-};
+}
 
 /**
  * 砖块布局组件
@@ -29,7 +29,7 @@ type itemInfo = {
  * 设置宽度，子项目将均匀布局在宽度中；设置左右间隔，子项目将按间隔
  * 布局，宽度即子项目间隔后的宽度。
  */
-function PinLayout({ width, itemWidth, colNum, gapX, gapY, placeHeight = 521, ItemComp, itemsData = [], PlaceComp }:  PinLayoutProps) {
+function PinLayout({ width, itemWidth, colNum, gapX = 36, gapY = 36, placeHeight = 521, ItemComp, itemsData = [], PlaceComp }: PinProps) {
   // 容器宽度
   const [w, setW] = useState(0);
   // 容器高度
@@ -74,7 +74,11 @@ function PinLayout({ width, itemWidth, colNum, gapX, gapY, placeHeight = 521, It
 
   useEffect(() => {
     // 如果提供宽度就根据宽度计算横向间隔，如果提供间隔就取间隔
-    setG(gapX || Math.floor((width - itemWidth * colNum) / (colNum - 1)));
+    if (width == null) {
+      setG(gapX || 36);
+    } else {
+      setG(Math.floor((width - itemWidth * colNum) / (colNum - 1)));
+    }
     // 如果提供宽度就取宽度，如果提供左右间隔就使用左右间隔计算宽度
     setW(width || gapX * (colNum - 1) + itemWidth * colNum);
   }, [width, gapX, colNum, itemWidth]);
@@ -84,12 +88,12 @@ function PinLayout({ width, itemWidth, colNum, gapX, gapY, placeHeight = 521, It
     const loadedItemsLen = loadedItems.filter(b => b).length;
     // 所有项目数量
     const totalItemsLen = itemsData.length;
-    if (loadedItemsLen !== totalItemsLen) { return ; }
+    if (loadedItemsLen !== totalItemsLen) { return; }
     // 子项目数目
     const itemsLen = itemsData.length;
     // 项目的高度
     const wrapperEl = wrapperRef.current;
-    if (wrapperEl == null) { return ; }
+    if (wrapperEl == null) { return; }
     const itemHs = Array.prototype.map.call<NodeListOf<ChildNode>, any, number[]>(wrapperEl.childNodes, (node: HTMLDivElement) => node.clientHeight);
     // 列的左边距离
     const colLs = [0];
@@ -258,8 +262,8 @@ export default PinLayout;
 
 function getMinHeight(colNum: number, colBottomIds: number[], itemTops: number[], itemHeights: number[]) {
   let minTop = itemTops[colBottomIds[0]] + itemHeights[colBottomIds[0]],
-  minItemId = colBottomIds[0],
-  minColId = 0;
+    minItemId = colBottomIds[0],
+    minColId = 0;
   for (let i = 1; i < colNum; ++ i) {
     const itemId = colBottomIds[i];
     const curTop = itemTops[itemId] + itemHeights[itemId];
