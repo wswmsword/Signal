@@ -1,0 +1,55 @@
+.overlay_bg {
+  width           : 100%;
+  height          : 100%;
+  position        : fixed;
+  align-items     : center;
+  justify-content : center;
+  z-index         : 3;
+  top             : 0;
+  left            : 0;
+  background-color: rgba(99, 99, 99, 0.6);
+
+}
+
+.close_bar {
+  width   : 100%;
+  height  : 36px;
+  position: relative;
+}
+
+.btn_close {
+  width           : 12px;
+  height          : 12px;
+  border-radius   : 50%;
+  border          : 0;
+  background-color: #dd3303;
+  cursor          : pointer;
+
+  position: absolute;
+  top     : 12px;
+  right   : 12px;
+}
+
+.overlay_page {
+  background-color: white;
+  flex-grow       : 1;
+  width           : 100%;
+  height          : calc(100% - 36px);
+  border-radius   : 7px 7px 0 0;
+  overflow        : auto;
+  top             : 36px;
+  position        : relative;
+}
+
+.tb_wrapper {
+  position  : fixed;
+  top       : 50%;
+  left      : 50%;
+  transform : translate(-50%, -50%);
+  visibility: hidden;
+  z-index   : 3;
+}
+
+.visible_tb {
+  visibility: visible;
+}

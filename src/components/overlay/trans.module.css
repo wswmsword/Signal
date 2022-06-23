@@ -1,0 +1,9 @@
+.page_appear {
+  opacity: 0.1;
+  transform: translateY(36px) scale(.99);
+}
+.page_appear_active {
+  opacity: 1;
+  transform: translateY(0px);
+  transition: opacity 180ms, transform 180ms;
+}
