@@ -54,6 +54,8 @@ function PinLayout({ width, itemWidth, colNum, gapX = 36, gapY = 36, placeHeight
 
   const wrapperRef = useRef<HTMLDivElement>(null);
 
+  const [hasMoveAnime, setHasMoveAnime] = useState(false);
+
   useEffect(() => {
     // 子项目数目
     const itemsLen = itemsData.length;
@@ -70,6 +72,11 @@ function PinLayout({ width, itemWidth, colNum, gapX = 36, gapY = 36, placeHeight
       })));
       return concatedItems;
     });
+
+    setHasMoveAnime(false);
+    setTimeout(() => {
+      setHasMoveAnime(true);
+    }, 69);
   }, [itemsData]);
 
   useEffect(() => {
@@ -198,7 +205,7 @@ function PinLayout({ width, itemWidth, colNum, gapX = 36, gapY = 36, placeHeight
       }}>
       {itemInfos.map((item, i) => <Fragment key={i}>
         <div
-          className={`${styles.item} ${item.id === selectedItem ? styles.selected : ''}`}
+          className={`${styles.item} ${item.id === selectedItem ? styles.selected : ''} ${hasMoveAnime ? styles.move_trans : ''}`}
           style={{
             position: "absolute",
             transform: `translateY(${item.offsetY}px)`,

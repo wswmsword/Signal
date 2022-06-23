@@ -7,9 +7,18 @@
   /* transition: transform 1.2s; */
 }
 .item {
-  transition: top .3s, left .3s, transform .3s;
+  transition: transform .3s;
   cursor: pointer;
   z-index: 1;
+}
+.move_trans {
+  transition: top .3s, left .3s, transform .3s;
+}
+.transparent {
+  opacity: 0;
+}
+.opacity_trans {
+  transition: top .3s, left .3s, transform .3s;
 }
 
 .selected {
