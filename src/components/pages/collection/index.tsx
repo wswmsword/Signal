@@ -8,7 +8,6 @@ import BtnBorder from "../../btn-border";
 import PopoverEditor from "./popover-editor";
 import { MemoizedMediaPin } from "../../media-pin-layout";
 import GreyPinItem from "../../fakes/grey-pin-item";
-import withMsgLink from "../../hoc/with-msg-link";
 import withExpandableForPin from "../../hoc/with-expandable-for-pin";
 import FakeBar from "./fake-bar";
 import { Outlet } from "react-router-dom";
@@ -63,7 +62,6 @@ const Collection = () => {
 
   // const memoItemsData = useMemo(() => [...Array(25)].map((_, i) => ({ id: genIdChars(), h: random(69, 361) })), []);
   const [itemsData, setData] = useState([...Array(25)].map((_, i) => ({ id: genIdChars(), h: random(69, 361) })));
-  const GreyPinItemWithMsgNavLink = useMemo(() => withMsgLink(GreyPinItem), []);
   const OutletWithExpandableForPin = useMemo(() => withExpandableForPin(Outlet), []);
   const loadMore = useCallback(() => {
     const nextData = [...Array(25)].map((_, i) => ({ id: genIdChars(), h: random(69, 361) }));
@@ -99,7 +97,7 @@ const Collection = () => {
           mItemW={180}
           itemW={210}
           itemsData={itemsData}
-          ItemComp={GreyPinItemWithMsgNavLink}
+          ItemComp={GreyPinItem}
           PlaceComp={OutletWithExpandableForPin}
           placeHeight={521} />
       </div>

@@ -8,19 +8,19 @@ interface PinProps {
   gapX?: number,
   gapY?: number,
   placeHeight?: number,
-  itemsData: object[],
+  itemsData: Record<string, unknown>[],
   ItemComp?: React.ComponentType<any>,
   PlaceComp?: React.ComponentType<any>,
 }
 
-interface itemInfo {
+export interface itemInfo {
   id: number,
   top: number,
   left: number,
   height: number,
   colId: number,
   offsetY: number,
-  data: object,
+  data: Record<string, unknown>,
 }
 
 /**
