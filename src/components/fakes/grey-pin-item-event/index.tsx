@@ -14,8 +14,9 @@ type PinItemProps = {
 
 const GreyPinItem = (props: PinItemProps) => {
   // const h = random(69, 361);
-  const { h, selected, readyToCalc, event, eventImgId, info } = props;
+  const { h, selected, readyToCalc, info } = props;
   const location = useLocation();
+  const locationState = (location.state || {}) as Record<string, unknown>;
   useLayoutEffect(() => {
     readyToCalc();
   }, []);
@@ -26,20 +27,12 @@ const GreyPinItem = (props: PinItemProps) => {
         width: `100%`,
         height: `${h || 100}px`,
       }}>
-      <Link to={selected ? '' : `msgs/${info.data.id}`}>
+      <Link
+        to={selected ? '' : `msgs/${info.data.id}`}
+        // 设置背景路由
+        state={{ backgroundLocation: locationState.backgroundLocation }}>
         <div className={styles.content}></div>
       </Link>
-      {event && <>
-        <Link
-          key={eventImgId}
-          to={`/events/${eventImgId}`}
-          // This is the trick! Set the `backgroundLocation` in location state
-          // so that when we open the modal we still see the current page in
-          // the background.
-          state={{ backgroundLocation: location }}>
-          <div className={styles.event} />
-        </Link>
-      </>}
     </div>
   </>;
 };

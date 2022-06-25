@@ -32,11 +32,19 @@ function App() {
           </Route>
         </Route>
         <Route path="*" element={<NoMatch />} />
-        {/* <Route path="events"></Route> */}
+        <Route path="/events/:id" element={<Event />}>
+          <Route path="msgs">
+            <Route path=":msgId" element={<GreyPinPlace />} />
+          </Route>
+        </Route>
       </Routes>
       {state?.backgroundLocation && (
         <Routes>
-          <Route path="/event/:id" element={<Event />} />
+          <Route path="/events/:id" element={<Event />}>
+            <Route path="msgs">
+              <Route path=":msgId" element={<GreyPinPlace />} />
+            </Route>
+          </Route>
         </Routes>
       )}
       <DraftsDrawer />
