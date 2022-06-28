@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect, Fragment, useCallback } from "react";
 import styles from "./index.module.css";
 
-interface PinProps {
+export interface PinProps {
   width?: number,
   itemWidth: number,
   colNum: number,
