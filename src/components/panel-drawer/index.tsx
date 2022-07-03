@@ -1,12 +1,21 @@
-import { useEffect, useRef, useState } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 import styles from "./index.module.css";
 
-const PanelDrawer = props => {
+interface PanelDrawerProps {
+  opened: boolean;
+  trigger: () => void;
+  title: string;
+  children?: ReactNode;
+}
+
+const PanelDrawer = (props: PanelDrawerProps) => {
   const { opened, trigger, title } = props;
-  const innerDomRef = useRef(null);
-  const [innerHeight, setInnerHeight] = useState(null);
+  const innerDomRef = useRef<HTMLDivElement>(null);
+  const [innerHeight, setInnerHeight] = useState<number | null>(null);
   useEffect(() => {
-    setInnerHeight(innerDomRef.current.clientHeight);
+    if (innerDomRef.current) {
+      setInnerHeight(innerDomRef.current.clientHeight);
+    }
   }, []);
 
   return <>

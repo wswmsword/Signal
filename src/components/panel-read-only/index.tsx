@@ -1,9 +1,10 @@
+import { ReactNode } from "react";
 import styles from "./index.module.css";
 
 interface PanelProps {
   opened?: boolean;
   title?: string;
-  children?: React.ReactNode,
+  children?: ReactNode,
 }
 
 const PanelReadOnly = (props: PanelProps) => {

@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import styles from "./index.module.css";
 
 const PaddingLink = React.forwardRef(
-  ({ activeClassName, activeStyle, rowPadding, theme, ...props }, ref) => {
+  ({ activeClassName, activeStyle, rowPadding, theme, ...props }: any, ref) => {
     const themeClass = theme === "dark" ? styles.dark : styles.light;
     return (
       <NavLink

@@ -1,15 +1,14 @@
-import { useEffect, useRef, useState } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 import Portal from "../portal";
 import styles from "./index.module.css";
 import transition from "./transition.module.css";
 import { CSSTransition } from "react-transition-group";
 import useCollapseRect from "../../hooks/useCollapseRect";
-import React from "react";
 
 type ExpandableTextProps = {
   lineClamp: number,
   disabledScroll?: boolean,
-  children?: React.ReactNode,
+  children?: ReactNode,
 };
 
 /**可展开文字的组件 */

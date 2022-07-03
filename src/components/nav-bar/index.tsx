@@ -13,7 +13,7 @@ import PaddingDotsBtn from "../button/padding-dots-btn";
 /**
  * 顶部导航栏组件
  */
-const NavBar = props => {
+const NavBar = () => {
 
   const isLogin = true;
   // 收藏集
@@ -50,7 +50,7 @@ const NavBar = props => {
     </div>
     <nav className={styles.nav_middle}>
       {isLogin && <>
-        <PaddingTriggerBtn selected={openedCollection} onClick={switchCollection} colorType="coal" rowPadding="7">收藏集</PaddingTriggerBtn>
+        <PaddingTriggerBtn selected={openedCollection} onClick={switchCollection} colorType="coal" rowPadding={7}>收藏集</PaddingTriggerBtn>
         <MediaPanel opened={openedCollection} close={switchCollection} title={"收藏集"} attachedRowPos="left" attachedColPos="bottom" childProps={{ openedCollection, switchCollection }} ChildComp={CollectionList} />
       </>}
       {/* <PaddingLink to="rooms" theme="dark" rowPadding="7">房间</PaddingLink> */}
@@ -59,17 +59,17 @@ const NavBar = props => {
     <ul className={`${styles.nav_right} ${styles.nav_menu}`}>
       {! isMobile && <>
         {isLogin && <li className={styles.menu_item}>
-          <PaddingTriggerBtn selected={openedNewFunc} onClick={switchNewFunc} rowPadding="7">创建</PaddingTriggerBtn>
+          <PaddingTriggerBtn selected={openedNewFunc} onClick={switchNewFunc} rowPadding={7}>创建</PaddingTriggerBtn>
           <MediaPanel opened={openedNewFunc} close={switchNewFunc} title={"创建"} childProps={{ openedNewFunc }} ChildComp={NewFuncsList} />
         </li>}
         <li className={`${styles.btn_more_wrapper} ${styles.menu_item}`}>
-          <PaddingDotsBtn selected={openedMore} onClick={switchMore} rowPadding="7" />
+          <PaddingDotsBtn selected={openedMore} onClick={switchMore} rowPadding={7} />
           <MediaPanel opened={openedMore} close={switchMore} title={"更多"} childProps={{ openedMore }} ChildComp={MoreList} />
         </li>
       </>}
       { isMobile && <>
         <li className={`${styles.btn_more_wrapper} ${styles.menu_item}`}>
-          <PaddingDotsBtn selected={openedMoreMobile} onClick={switchMoreMobile} rowPadding="7" />
+          <PaddingDotsBtn selected={openedMoreMobile} onClick={switchMoreMobile} rowPadding={7} />
           <MediaPanel opened={openedMoreMobile} close={switchMoreMobile} title={"更多"} childProps={{ openedMoreMobile }} ChildComp={MoreListMobile} />
         </li>
       </>}
@@ -77,11 +77,15 @@ const NavBar = props => {
   </header>;
 };
 
+type inPortal = {
+  inPortal: boolean;
+}
+
 /**
  * 顶栏更多功能组件（移动端）
  * @param {Boolean} inPortal 是否在 Portal 中
  */
-function MoreListMobile({ inPortal }) {
+function MoreListMobile({ inPortal }: inPortal) {
   return <>
     <ul className={inPortal ? pListStyles.mobile : ''}>
       <li className={pListStyles.list_item}><BtnPure size="stretch">创建消息</BtnPure></li>
@@ -98,7 +102,7 @@ function MoreListMobile({ inPortal }) {
  * 顶栏更多功能组件
  * @param {Boolean} inPortal 是否在 Portal 中
  */
-function MoreList({ inPortal }) {
+function MoreList({ inPortal }: inPortal) {
   return <>
     <ul className={inPortal ? pListStyles.mobile : ''}>
       <li className={pListStyles.list_item}><BtnPure size="stretch">个人主页</BtnPure></li>
@@ -112,7 +116,7 @@ function MoreList({ inPortal }) {
  * 顶栏创建功能组件
  * @param {Boolean} inPortal 是否在 Portal 中
  */
-function NewFuncsList({ inPortal }) {
+function NewFuncsList({ inPortal }: inPortal) {
   return <>
     <ul className={inPortal ? pListStyles.mobile : ''}>
       <li className={pListStyles.list_item}><BtnPure size="stretch">创建消息</BtnPure></li>

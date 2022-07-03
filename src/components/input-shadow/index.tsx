@@ -2,12 +2,14 @@ import styles from "./index.module.css";
 
 interface InputShadowProps {
   value?: string;
+  size?: "small" | "normal" | "big";
 }
 
 const InputShadow = (props: InputShadowProps) => {
-  const { value } = props;
+  const { value, size } = props;
+  const sizeClass = styles[size || "normal"];
   return <>
-    <input className={styles.groove_shadow} value={value} />
+    <input className={`${styles.groove_shadow} ${sizeClass}`} value={value} />
   </>;
 };
 

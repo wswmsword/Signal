@@ -9,9 +9,9 @@ import { assertIsNode } from "../../tools/ts";
 
 interface PopoverProps {
   children?: ReactNode;
-  opened: boolean,
-  close: () => void,
-  antiTouch?: boolean,
+  opened: boolean;
+  close: () => void;
+  antiTouch?: boolean;
 }
 
 const Popover = (props: PopoverProps) => {

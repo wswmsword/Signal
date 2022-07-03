@@ -3,6 +3,8 @@ import DotsBtn from "../dots-btn";
 interface PDBProps {
   rowPadding?: number;
   style?: Record<string, unknown>;
+  selected?: boolean;
+  onClick?: () => void;
 }
 
 export default function PaddingDotsBtn(props: PDBProps) {

@@ -1,9 +1,17 @@
 import styles from "./index.module.css";
 import transition from "./transition.module.css";
 import { CSSTransition } from "react-transition-group";
-import { useRef } from "react";
+import { ReactNode, useRef } from "react";
 
-const Panel = props => {
+interface PanelProps {
+  opened: boolean;
+  close: () => void;
+  title?: string;
+  width?: string;
+  children?: ReactNode;
+}
+
+const Panel = (props: PanelProps) => {
   const { opened, close, title, width } = props;
   const nodeRef = useRef(null);
 
